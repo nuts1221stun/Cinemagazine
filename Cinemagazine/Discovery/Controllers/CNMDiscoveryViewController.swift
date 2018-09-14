@@ -12,5 +12,9 @@ class CNMDiscoveryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
+
+        CNMDiscoveryService.fetchMovies { (data, error) in
+            
+        }
     }
 }
