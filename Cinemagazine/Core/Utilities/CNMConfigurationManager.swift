@@ -24,7 +24,7 @@ class CNMConfigurationManager {
     }
 
     private struct Image: Decodable {
-        var configuration: CNMConfigurationDataModel?
+        var images: CNMConfigurationDataModel?
     }
 
     private func fetchLocalConfiguartions() {
@@ -40,7 +40,7 @@ class CNMConfigurationManager {
     }
 
     private func fetchRemoteConfigurations() {
-        CNMMovieBaseService.request(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (data, err) in
+        CNMNetworkService.requestTMDb(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (data, err) in
             self?.load(data: data)
         }
     }
@@ -50,6 +50,6 @@ class CNMConfigurationManager {
             let image = try? JSONDecoder().decode(Image.self, from: imageData) else {
             return
         }
-        self.configuration = image.configuration
+        self.configuration = image.images
     }
 }

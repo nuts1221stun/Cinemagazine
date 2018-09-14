@@ -1,5 +1,5 @@
 //
-//  CNMMovieBaseService.swift
+//  CNMNetworkService+TMDbAPI.swift
 //  Cinemagazine
 //
 //  Created by Li-Erh Chang on 2018/9/14.
@@ -13,11 +13,11 @@ enum APIVersion: String {
     case v4 = "4"
 }
 
-class CNMMovieBaseService {
+extension CNMNetworkService {
     static private func newBaseUrl() -> URL? {
         return URL(string: CNMConfigurationManager.serviceHost)
     }
-    static func request(
+    static func requestTMDb(
         version: APIVersion,
         path: String,
         method: RequestMethod,
