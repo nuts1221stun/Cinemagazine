@@ -35,7 +35,7 @@ class CNMDiscoveryService {
         sortBy: SortBy = .releaseDate,
         order: Order = .desc,
         page: Int = 1,
-        callback: @escaping (_ res: Data?, _ error: Error?) -> Void) {
+        callback: @escaping (_ page: CNMPaginationDataModel?, _ error: Error?) -> Void) {
 
         let dateFormatter = Constants.dateFormatter
         let week: TimeInterval = 60 * 60 * 24 * 7
@@ -59,7 +59,12 @@ class CNMDiscoveryService {
         method: .get,
         parameters: parameters,
         body: nil,
-        header: nil) { (data, err) in
+        header: nil) { (res, err) in
+            var page: CNMPaginationDataModel?
+            if err == nil, let data = res {
+                page = try? JSONDecoder().decode(CNMPaginationDataModel.self, from: data)
+            }
+            callback(page, err)
         }
     }
 }
