@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		0A274A82F29B431FD403CC9B /* Pods-Cinemagazine.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinemagazine.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cinemagazine/Pods-Cinemagazine.release.xcconfig"; sourceTree = "<group>"; };
 		3360F434CE40C168149E02B4 /* Pods-CinemagazineTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinemagazineTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CinemagazineTests/Pods-CinemagazineTests.release.xcconfig"; sourceTree = "<group>"; };
+		9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationDataModel.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 				3360F434CE40C168149E02B4 /* Pods-CinemagazineTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		9B43836F214BAED500AB5939 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9B61C5B8214A9BAF002426A7 = {
@@ -153,6 +163,7 @@
 		9B61C5E9214AB048002426A7 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				9B43836F214BAED500AB5939 /* Models */,
 				9B61C5F1214AB581002426A7 /* Services */,
 				9B61C5EA214AB04F002426A7 /* Utilities */,
 			);
@@ -355,6 +366,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B61C5E8214AA666002426A7 /* CNMListingViewController.swift in Sources */,
+				9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */,
 				9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
 				9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */,

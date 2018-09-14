@@ -16,9 +16,15 @@ class CNMConfigurationManager {
     static let shared = CNMConfigurationManager()
     private init() {}
 
+    private(set) var configuration: CNMConfigurationDataModel?
+
     func setUp() {
         fetchLocalConfiguartions()
         fetchRemoteConfigurations()
+    }
+
+    private struct Image: Decodable {
+        var configuration: CNMConfigurationDataModel?
     }
 
     private func fetchLocalConfiguartions() {
@@ -27,23 +33,23 @@ class CNMConfigurationManager {
         }
         do {
             let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-            let result = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-            load(response: result)
+            load(data: data)
         } catch {
             // handle error
         }
     }
 
     private func fetchRemoteConfigurations() {
-        CNMMovieBaseService.request(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (res, err) in
-            self?.load(response: res)
+        CNMMovieBaseService.request(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (data, err) in
+            self?.load(data: data)
         }
     }
 
-    private func load(response: Any?) {
-        guard let json = response as? [String: Any] else {
+    private func load(data: Data?) {
+        guard let imageData = data,
+            let image = try? JSONDecoder().decode(Image.self, from: imageData) else {
             return
         }
-        print("====================\(json)")
+        self.configuration = image.configuration
     }
 }

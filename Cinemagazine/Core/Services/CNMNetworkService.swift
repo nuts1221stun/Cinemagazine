@@ -29,7 +29,7 @@ class CNMNetworkService {
         parameters: [String: String]?,
         body: [String: Any]?,
         header: [String: String]?,
-        callback: @escaping (_ response: Any?, _ error: Error?) -> Void) {
+        callback: @escaping (_ response: Data?, _ error: Error?) -> Void) {
         guard let inputUrl = url,
             var urlComponents = URLComponents(url: inputUrl, resolvingAgainstBaseURL: true) else {
             callback(nil, nil)
@@ -58,15 +58,14 @@ class CNMNetworkService {
             headers: header)
             .validate()
             .responseJSON { (res) in
-                var response: Any?
                 var error: Error?
                 switch (res.result) {
-                case .success(let val):
-                    response = val
+                case .success(_):
+                    break
                 case .failure(let err):
                     error = err
                 }
-                callback(response, error)
+                callback(res.data, error)
         }
     }
 }

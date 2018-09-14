@@ -24,7 +24,7 @@ class CNMMovieBaseService {
         parameters: [String: String]?,
         body: [String: Any]?,
         header: [String: String]?,
-        callback: @escaping (_ response: Any?, _ error: Error?) -> Void) {
+        callback: @escaping (_ response: Data?, _ error: Error?) -> Void) {
         var requestParams: [String: String]? = parameters
         var requestHeader: [String: String]? = header
         switch version {
