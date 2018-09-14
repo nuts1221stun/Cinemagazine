@@ -1,5 +1,5 @@
 //
-//  CNMListingViewController.swift
+//  CNMDiscoveryViewController.swift
 //  Cinemagazine
 //
 //  Created by Li-Erh Chang on 2018/9/13.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CNMListingViewController: UIViewController {
+class CNMDiscoveryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white

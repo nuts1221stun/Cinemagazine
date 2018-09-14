@@ -12,7 +12,7 @@
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
 		9B61C5DA214A9BB3002426A7 /* CinemagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5D9214A9BB3002426A7 /* CinemagazineTests.swift */; };
-		9B61C5E8214AA666002426A7 /* CNMListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5E7214AA666002426A7 /* CNMListingViewController.swift */; };
+		9B61C5E8214AA666002426A7 /* CNMDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */; };
 		9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5EB214AB098002426A7 /* CNMConfigurationManager.swift */; };
 		9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */; };
 		9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */; };
@@ -43,7 +43,7 @@
 		9B61C5D5214A9BB3002426A7 /* CinemagazineTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinemagazineTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5D9214A9BB3002426A7 /* CinemagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemagazineTests.swift; sourceTree = "<group>"; };
 		9B61C5DB214A9BB3002426A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B61C5E7214AA666002426A7 /* CNMListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMListingViewController.swift; sourceTree = "<group>"; };
+		9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMDiscoveryViewController.swift; sourceTree = "<group>"; };
 		9B61C5EB214AB098002426A7 /* CNMConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationManager.swift; sourceTree = "<group>"; };
 		9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNetworkService.swift; sourceTree = "<group>"; };
 		9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMNetworkService+TMDbAPI.swift"; sourceTree = "<group>"; };
@@ -117,8 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				9B61C5E9214AB048002426A7 /* Core */,
-				9B61C5E5214AA5D0002426A7 /* Content */,
-				9B61C5E4214AA56A002426A7 /* Listing */,
+				9B61C5E4214AA56A002426A7 /* Discovery */,
 				9BAA679B214B943800CDA445 /* Supporting Files */,
 				9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */,
 				9B61C5CB214A9BB3002426A7 /* Assets.xcassets */,
@@ -137,25 +136,18 @@
 			path = CinemagazineTests;
 			sourceTree = "<group>";
 		};
-		9B61C5E4214AA56A002426A7 /* Listing */ = {
+		9B61C5E4214AA56A002426A7 /* Discovery */ = {
 			isa = PBXGroup;
 			children = (
 				9B61C5E6214AA5F2002426A7 /* Controllers */,
 			);
-			path = Listing;
-			sourceTree = "<group>";
-		};
-		9B61C5E5214AA5D0002426A7 /* Content */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Content;
+			path = Discovery;
 			sourceTree = "<group>";
 		};
 		9B61C5E6214AA5F2002426A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9B61C5E7214AA666002426A7 /* CNMListingViewController.swift */,
+				9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -365,7 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9B61C5E8214AA666002426A7 /* CNMListingViewController.swift in Sources */,
+				9B61C5E8214AA666002426A7 /* CNMDiscoveryViewController.swift in Sources */,
 				9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */,
 				9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
