@@ -6,6 +6,7 @@ target 'Cinemagazine' do
 
   # Pods for Cinemagazine
   pod 'Alamofire', '~> 4.7'
+  pod 'SDWebImage', '~> 4.0'
 
   target 'CinemagazineTests' do
     inherit! :search_paths
