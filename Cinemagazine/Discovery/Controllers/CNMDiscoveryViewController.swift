@@ -10,16 +10,18 @@ import UIKit
 
 class CNMDiscoveryViewController: UIViewController {
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
-    private var currentPage: Int = 1
+    private var currentPage: Int = 0
     private var totalPages: Int?
     private var totalResults: Int?
     private var movies = [CNMMovieDataModel]()
     private var posters = [CNMPosterViewModel]()
+    private var isFetching = false
 
     struct Constants {
         static let horizontalSpacing: CGFloat = 16
         static let verticalSpacing: CGFloat = 16
         static let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+        static let loadMoreScrollThreshold: CGFloat = 100
     }
 
     override func viewDidLoad() {
@@ -39,10 +41,12 @@ class CNMDiscoveryViewController: UIViewController {
     }
 
     func fetchMovies() {
-        if currentPage >= (totalPages ?? Int.max) {
+        if isFetching || currentPage >= (totalPages ?? Int.max) {
             return
         }
-        CNMDiscoveryService.fetchMovies(sortBy: .releaseDate, order: .desc, page: currentPage) { [weak self] (page, error) in
+        isFetching = true
+        CNMDiscoveryService.fetchMovies(sortBy: .releaseDate, order: .desc, page: currentPage + 1) { [weak self] (page, error) in
+            self?.isFetching = false
             guard let strongSelf = self,
                 let page = page else {
                 return
@@ -50,6 +54,9 @@ class CNMDiscoveryViewController: UIViewController {
             if strongSelf.totalPages == nil {
                 strongSelf.totalPages = page.totalPages
                 strongSelf.totalResults = page.totalResults
+            }
+            if let currentPage = page.page {
+                strongSelf.currentPage = currentPage
             }
 
             guard let movies = page.results,
@@ -112,6 +119,13 @@ extension CNMDiscoveryViewController: UICollectionViewDataSource {
 }
 
 extension CNMDiscoveryViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let scrollOffsetY = scrollView.contentOffset.y + scrollView.bounds.height + Constants.loadMoreScrollThreshold
+        guard scrollOffsetY >= scrollView.contentSize.height else {
+            return
+        }
+        fetchMovies()
+    }
 }
 
 extension CNMDiscoveryViewController: UICollectionViewDelegateFlowLayout {
