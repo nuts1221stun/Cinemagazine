@@ -15,8 +15,9 @@ class CNMLabel: UILabel {
         case bottom
     }
     var textVerticalAlignment: VerticalAlignment = .top
+    var insets: UIEdgeInsets = .zero
     override func draw(_ rect: CGRect) {
-        var newRect = bounds
+        var newRect = UIEdgeInsetsInsetRect(bounds, insets)
 
         defer {
             super.drawText(in: newRect)
@@ -24,15 +25,22 @@ class CNMLabel: UILabel {
         if textVerticalAlignment == .center {
             return
         }
-
-        let fittingSize = (text as NSString?)?.boundingRect(with: bounds.size, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedStringKey.font: font], context: nil).size
-        if var size = fittingSize {
-            let height = numberOfLines > 0 ? font.lineHeight * CGFloat(numberOfLines) : CGFloat.greatestFiniteMagnitude
-            size.height = min(height, size.height)
-            newRect.size = size
-            if textVerticalAlignment == .bottom {
-                newRect.origin.y = rect.height - size.height
-            }
+        var fittingSize = sizeThatFits(bounds.size)
+        fittingSize.width -= (insets.left + insets.right)
+        fittingSize.height -= (insets.top + insets.bottom)
+        fittingSize.height = min(bounds.height, fittingSize.height)
+        newRect.size = fittingSize
+        if textVerticalAlignment == .bottom {
+            newRect.origin.y = rect.height - fittingSize.height - insets.bottom
         }
+    }
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        var boundingSize = size
+        boundingSize.width -= (insets.left + insets.right)
+        boundingSize.height -= (insets.top + insets.bottom)
+        var fittingSize = (text as NSString?)?.boundingRect(with: boundingSize, options: [.usesLineFragmentOrigin, .usesFontLeading], attributes: [NSAttributedStringKey.font: font], context: nil).size ?? super.sizeThatFits(boundingSize)
+        fittingSize.width += (insets.left + insets.right)
+        fittingSize.height += (insets.top + insets.bottom)
+        return fittingSize
     }
 }

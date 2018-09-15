@@ -120,13 +120,19 @@ class CNMDiscoveryViewController: UIViewController {
         }
         var posters = [CNMPosterViewModel]()
         for movie in movies {
-            let image = CNMImageViewModel(imagePath: movie.posterPath, aspectRatio: 0.666)
+            let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666)
             let title = CNMTextViewModel(text: movie.title,
                                          font: UIFont.systemFont(ofSize: 14),
-                                         textColor: UIColor.black)
+                                         textColor: UIColor.black,
+                                         numberOfLines: 2,
+                                         minNumberOfLines: 2,
+                                         insets: .zero)
             let popularity = CNMTextViewModel(text: "\(movie.popularity ?? 0)",
-                font: UIFont.systemFont(ofSize: 12),
-                textColor: UIColor.black)
+                                                font: UIFont.systemFont(ofSize: 12),
+                                                textColor: UIColor.black,
+                                                numberOfLines: 1,
+                                                minNumberOfLines: 1,
+                                                insets: .zero)
             let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
             posters.append(poster)
         }
@@ -164,6 +170,13 @@ extension CNMDiscoveryViewController: UICollectionViewDelegate {
             return
         }
         loadMore()
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard indexPath.item < movies.count else {
+            return
+        }
+        let vc = CNMMovieViewController(movie: movies[indexPath.item])
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

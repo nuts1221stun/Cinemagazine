@@ -8,8 +8,8 @@
 
 import UIKit
 
-class CNMBaseCell<Data>: UICollectionViewCell {
-    var data: Data?
+class CNMBaseCell: UICollectionViewCell {
+    var data: Any?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -24,10 +24,10 @@ class CNMBaseCell<Data>: UICollectionViewCell {
     func commonInit() {
 
     }
-    class func sizeThatFits(_ size: CGSize, data: Data) -> CGSize {
+    class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
         return .zero
     }
-    func populate(withData data: Data) {
+    func populate(withData data: Any) {
         self.data = data
     }
 }
