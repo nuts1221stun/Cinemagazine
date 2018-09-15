@@ -9,12 +9,12 @@
 import UIKit
 
 class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
-    private var imageView = UIImageView()
+    private var imageView = CNMImageView()
     private var titleLabel = CNMLabel()
     private var popularityLabel = CNMLabel()
 
     struct Constants {
-        static let imageAspectRatio: CGFloat = 0.75
+        static let imageAspectRatio: CGFloat = 0.666
         static let imageToTitleSpacing: CGFloat = 4
         static let titleToPopularitySpacing: CGFloat = 4
         static let titleNumberOfLines: Int = 2
@@ -22,6 +22,9 @@ class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
     }
     override func commonInit() {
         super.commonInit()
+
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         contentView.addSubview(imageView)
 
         titleLabel.numberOfLines = Constants.titleNumberOfLines
@@ -60,7 +63,11 @@ class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
     override func populate(withData data: CNMPosterViewModelProtocol) {
         super.populate(withData: data)
         imageView.backgroundColor = UIColor.lightGray
+        imageView.imageUrl = data.image?.imageUrl(fittingWidth: bounds.width)
         titleLabel.populate(withData: data.title)
         popularityLabel.populate(withData: data.popularity)
+    }
+    override func prepareForReuse() {
+        imageView.image = nil
     }
 }

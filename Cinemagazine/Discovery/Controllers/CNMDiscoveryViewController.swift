@@ -81,7 +81,7 @@ class CNMDiscoveryViewController: UIViewController {
         }
         var posters = [CNMPosterViewModel]()
         for movie in movies {
-            let image = CNMImageViewModel(imageUrl: movie.posterPath, aspectRatio: 0.85)
+            let image = CNMImageViewModel(imagePath: movie.posterPath, aspectRatio: 0.666)
             let title = CNMTextViewModel(text: movie.title,
                                          font: UIFont.systemFont(ofSize: 14),
                                          textColor: UIColor.black)

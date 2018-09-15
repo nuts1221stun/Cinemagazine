@@ -23,10 +23,6 @@ class CNMConfigurationManager {
         fetchRemoteConfigurations()
     }
 
-    private struct Image: Decodable {
-        var images: CNMConfigurationDataModel?
-    }
-
     private func fetchLocalConfiguartions() {
         guard let path = Bundle.main.path(forResource: "configuration", ofType: "json") else {
             return
@@ -46,10 +42,10 @@ class CNMConfigurationManager {
     }
 
     private func load(data: Data?) {
-        guard let imageData = data,
-            let image = try? JSONDecoder().decode(Image.self, from: imageData) else {
+        guard let data = data,
+            let configuration = try? JSONDecoder().decode(CNMConfigurationDataModel.self, from: data) else {
             return
         }
-        self.configuration = image.images
+        self.configuration = configuration
     }
 }

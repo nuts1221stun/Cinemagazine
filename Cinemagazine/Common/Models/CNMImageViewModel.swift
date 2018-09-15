@@ -9,11 +9,17 @@
 import UIKit
 
 protocol CNMImageViewModelProtocol {
-    var imageUrl: String? { get }
+    var imagePath: String? { get }
     var aspectRatio: CGFloat? { get }
 }
 
+extension CNMImageViewModelProtocol {
+    func imageUrl(fittingWidth width: CGFloat) -> String? {
+        return CNMImageHelper.imageUrl(forType: .poster, path: imagePath, fittingWidth: width)
+    }
+}
+
 struct CNMImageViewModel: CNMImageViewModelProtocol {
-    var imageUrl: String?
+    var imagePath: String?
     var aspectRatio: CGFloat?
 }

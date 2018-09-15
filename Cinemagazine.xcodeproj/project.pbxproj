@@ -21,6 +21,10 @@
 		9B43839D214CB17400AB5939 /* CNMPosterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43839C214CB17400AB5939 /* CNMPosterViewModel.swift */; };
 		9B43839F214CB18F00AB5939 /* CNMTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43839E214CB18F00AB5939 /* CNMTextViewModel.swift */; };
 		9B4383A4214CB25C00AB5939 /* CNMLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383A3214CB25C00AB5939 /* CNMLabel.swift */; };
+		9B4383A6214CE5BE00AB5939 /* CNMImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383A5214CE5BE00AB5939 /* CNMImageView.swift */; };
+		9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */; };
+		9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */; };
+		9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -61,6 +65,10 @@
 		9B43839C214CB17400AB5939 /* CNMPosterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMPosterViewModel.swift; sourceTree = "<group>"; };
 		9B43839E214CB18F00AB5939 /* CNMTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMTextViewModel.swift; sourceTree = "<group>"; };
 		9B4383A3214CB25C00AB5939 /* CNMLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMLabel.swift; sourceTree = "<group>"; };
+		9B4383A5214CE5BE00AB5939 /* CNMImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageView.swift; sourceTree = "<group>"; };
+		9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageHelper.swift; sourceTree = "<group>"; };
+		9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationImageDataModel.swift; sourceTree = "<group>"; };
+		9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageSizeDataModel.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */,
+				9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */,
+				9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				9B43837B214BEFE300AB5939 /* Models */,
+				9B4383AA214CE86F00AB5939 /* Utilities */,
 				9B43838F214C10AA00AB5939 /* Views */,
 			);
 			path = Common;
@@ -156,10 +167,19 @@
 			isa = PBXGroup;
 			children = (
 				9B438392214C114900AB5939 /* CNMBaseCell.swift */,
+				9B4383A5214CE5BE00AB5939 /* CNMImageView.swift */,
 				9B4383A3214CB25C00AB5939 /* CNMLabel.swift */,
 				9B438390214C10C900AB5939 /* CNMPosterCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		9B4383AA214CE86F00AB5939 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		9B61C5B8214A9BAF002426A7 = {
@@ -438,11 +458,15 @@
 				9B43839B214CB15400AB5939 /* CNMImageViewModel.swift in Sources */,
 				9B438381214BF1DA00AB5939 /* CNMGenreDataModel.swift in Sources */,
 				9B438393214C114900AB5939 /* CNMBaseCell.swift in Sources */,
+				9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */,
 				9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */,
+				9B4383A6214CE5BE00AB5939 /* CNMImageView.swift in Sources */,
+				9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
 				9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */,
 				9B438383214BF31E00AB5939 /* CNMCompanyDataModel.swift in Sources */,
 				9B438391214C10C900AB5939 /* CNMPosterCell.swift in Sources */,
+				9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */,
 				9B4383A4214CB25C00AB5939 /* CNMLabel.swift in Sources */,
 				9B438385214BF40300AB5939 /* CNMCountryDataModel.swift in Sources */,
 				9B43839F214CB18F00AB5939 /* CNMTextViewModel.swift in Sources */,
@@ -603,7 +627,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Cinemagazine/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nuts.Cinemagazine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -618,7 +645,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Cinemagazine/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nuts.Cinemagazine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -634,7 +664,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CinemagazineTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nuts.CinemagazineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -651,7 +685,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CinemagazineTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.nuts.CinemagazineTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
