@@ -10,6 +10,7 @@ import UIKit
 
 class CNMDiscoveryViewController: UIViewController {
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private var refreshControl = UIRefreshControl()
     private var currentPage: Int = 0
     private var totalPages: Int?
     private var totalResults: Int?
@@ -28,50 +29,88 @@ class CNMDiscoveryViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
 
+        refreshControl.addTarget(self, action: #selector(didPullRefreshControl), for: .valueChanged)
+
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
         collectionView.register(CNMPosterCell.self,
                                 forCellWithReuseIdentifier: CNMPosterCell.reuseIdentifier())
+        collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
 
-        collectionView.reloadData()
-
-        fetchMovies()
+        refresh(isUserTriggered: false)
     }
 
-    func fetchMovies() {
+    @objc func didPullRefreshControl() {
+        refresh(isUserTriggered: true)
+    }
+
+    @objc func refresh(isUserTriggered: Bool) {
+        if isUserTriggered {
+            self.refreshControl.beginRefreshing()
+        }
+        self.currentPage = 0
+        fetchMovies { [weak self] (page, error) in
+            guard let strongSelf = self else { return }
+            if isUserTriggered {
+                strongSelf.refreshControl.endRefreshing()
+            }
+            strongSelf.add(page: page, clearsPreviousPages: true)
+        }
+    }
+
+    func loadMore() {
+        fetchMovies { [weak self] (page, error) in
+            guard let strongSelf = self else { return }
+            strongSelf.add(page: page)
+        }
+    }
+
+    func fetchMovies(completion: @escaping (_ page: CNMPaginationDataModel?, _ error: Error?) -> Void) {
         if isFetching || currentPage >= (totalPages ?? Int.max) {
             return
         }
         isFetching = true
         CNMDiscoveryService.fetchMovies(sortBy: .releaseDate, order: .desc, page: currentPage + 1) { [weak self] (page, error) in
-            self?.isFetching = false
-            guard let strongSelf = self,
-                let page = page else {
-                return
-            }
-            if strongSelf.totalPages == nil {
-                strongSelf.totalPages = page.totalPages
-                strongSelf.totalResults = page.totalResults
-            }
-            if let currentPage = page.page {
-                strongSelf.currentPage = currentPage
-            }
+            guard let strongSelf = self else { return }
+            strongSelf.isFetching = false
+            completion(page, error)
+        }
+    }
 
-            guard let movies = page.results,
-                let posters = strongSelf.posters(fromMovies: page.results) else {
+    private func add(page: CNMPaginationDataModel?, clearsPreviousPages: Bool = false) {
+        guard let page = page else {
+            return
+        }
+        if self.currentPage == 0 {
+            self.totalPages = page.totalPages
+            self.totalResults = page.totalResults
+        }
+        if let currentPage = page.page {
+            self.currentPage = currentPage
+        }
+
+        guard let movies = page.results,
+            let posters = self.posters(fromMovies: page.results) else {
                 return
-            }
-            var indexPaths = [IndexPath]()
-            let start = strongSelf.posters.count
-            for (index, _) in posters.enumerated() {
-                let indexPath = IndexPath(item: start + index, section: 0)
-                indexPaths.append(indexPath)
-            }
-            strongSelf.posters.append(contentsOf: posters)
-            strongSelf.movies.append(contentsOf: movies)
-            strongSelf.collectionView.insertItems(at: indexPaths)
+        }
+        var indexPaths = [IndexPath]()
+        let start = self.posters.count
+        for (index, _) in posters.enumerated() {
+            let indexPath = IndexPath(item: start + index, section: 0)
+            indexPaths.append(indexPath)
+        }
+        if clearsPreviousPages {
+            self.movies = [CNMMovieDataModel]()
+            self.posters = [CNMPosterViewModel]()
+        }
+        self.posters.append(contentsOf: posters)
+        self.movies.append(contentsOf: movies)
+        if clearsPreviousPages {
+            self.collectionView.reloadData()
+        } else {
+            self.collectionView.insertItems(at: indexPaths)
         }
     }
 
@@ -124,7 +163,7 @@ extension CNMDiscoveryViewController: UICollectionViewDelegate {
         guard scrollOffsetY >= scrollView.contentSize.height else {
             return
         }
-        fetchMovies()
+        loadMore()
     }
 }
 
