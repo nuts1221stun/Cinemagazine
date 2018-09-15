@@ -25,6 +25,7 @@
 		9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */; };
 		9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */; };
 		9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */; };
+		9B4383B2214CFF2600AB5939 /* CNMNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -69,6 +70,7 @@
 		9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageHelper.swift; sourceTree = "<group>"; };
 		9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationImageDataModel.swift; sourceTree = "<group>"; };
 		9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageSizeDataModel.swift; sourceTree = "<group>"; };
+		9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNavigationManager.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -264,6 +266,7 @@
 		9B61C5F1214AB581002426A7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */,
 				9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */,
 				9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */,
 			);
@@ -464,6 +467,7 @@
 				9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
 				9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */,
+				9B4383B2214CFF2600AB5939 /* CNMNavigationManager.swift in Sources */,
 				9B438383214BF31E00AB5939 /* CNMCompanyDataModel.swift in Sources */,
 				9B438391214C10C900AB5939 /* CNMPosterCell.swift in Sources */,
 				9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */,

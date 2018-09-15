@@ -16,10 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        let vc = CNMDiscoveryViewController()
-        let navVC = UINavigationController(rootViewController: vc)
         let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = navVC
+        window.rootViewController = CNMNavigationManager.navigationController
         window.makeKeyAndVisible()
         self.window = window
 
