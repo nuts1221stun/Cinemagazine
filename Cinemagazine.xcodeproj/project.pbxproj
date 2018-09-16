@@ -33,12 +33,12 @@
 		9B4383C2214DFABC00AB5939 /* CNMMovieTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383C1214DFABC00AB5939 /* CNMMovieTitleCell.swift */; };
 		9B4383C8214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */; };
 		9B4383CB214E008400AB5939 /* CNMMovieTitleEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */; };
+		9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
 		9B61C5DA214A9BB3002426A7 /* CinemagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5D9214A9BB3002426A7 /* CinemagazineTests.swift */; };
 		9B61C5E8214AA666002426A7 /* CNMDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */; };
-		9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5EB214AB098002426A7 /* CNMConfigurationManager.swift */; };
 		9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */; };
 		9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */; };
 		9BAA679F214BAA0700CDA445 /* configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BAA679E214BAA0700CDA445 /* configuration.json */; };
@@ -85,6 +85,7 @@
 		9B4383C1214DFABC00AB5939 /* CNMMovieTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieTitleCell.swift; sourceTree = "<group>"; };
 		9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMButtonEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieTitleEventHandler.swift; sourceTree = "<group>"; };
+		9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNMConfigurationManager.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -94,7 +95,6 @@
 		9B61C5D9214A9BB3002426A7 /* CinemagazineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemagazineTests.swift; sourceTree = "<group>"; };
 		9B61C5DB214A9BB3002426A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMDiscoveryViewController.swift; sourceTree = "<group>"; };
-		9B61C5EB214AB098002426A7 /* CNMConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationManager.swift; sourceTree = "<group>"; };
 		9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNetworkService.swift; sourceTree = "<group>"; };
 		9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMNetworkService+TMDbAPI.swift"; sourceTree = "<group>"; };
 		9BAA679E214BAA0700CDA445 /* configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = configuration.json; sourceTree = "<group>"; };
@@ -311,22 +311,14 @@
 			children = (
 				9B43836F214BAED500AB5939 /* Models */,
 				9B61C5F1214AB581002426A7 /* Services */,
-				9B61C5EA214AB04F002426A7 /* Utilities */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		9B61C5EA214AB04F002426A7 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				9B61C5EB214AB098002426A7 /* CNMConfigurationManager.swift */,
-			);
-			path = Utilities;
 			sourceTree = "<group>";
 		};
 		9B61C5F1214AB581002426A7 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */,
 				9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */,
 				9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */,
 				9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */,
@@ -526,7 +518,6 @@
 				9B438381214BF1DA00AB5939 /* CNMGenreDataModel.swift in Sources */,
 				9B438393214C114900AB5939 /* CNMBaseCell.swift in Sources */,
 				9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */,
-				9B61C5EC214AB098002426A7 /* CNMConfigurationManager.swift in Sources */,
 				9B4383A6214CE5BE00AB5939 /* CNMImageView.swift in Sources */,
 				9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
@@ -544,6 +535,7 @@
 				9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */,
 				9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */,
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
+				9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */,
 				9B4383B6214D02BB00AB5939 /* CNMMovieViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
