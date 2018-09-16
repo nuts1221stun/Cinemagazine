@@ -12,6 +12,8 @@ class CNMConfigurationManager {
     static let APIAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjM2ZGY2ODUxZjU3ZWM3MjA4MjEyNWNkMTQyMjc5YiIsInN1YiI6IjViOTliNzZmYzNhMzY4MWQ3MDAwM2M0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SncDKjKbinvBrUoG0fRZHklOI5G4GE2CQY9-gIWrVWI"
     static let APIKey = "2b36df6851f57ec72082125cd142279b"
     static let serviceHost = "https://api.themoviedb.org"
+    static private(set) var region = "TW"
+    static private(set) var language = "zh-TW"
 
     static let shared = CNMConfigurationManager()
     private init() {}
