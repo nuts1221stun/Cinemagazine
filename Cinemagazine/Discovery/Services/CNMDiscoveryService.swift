@@ -53,7 +53,7 @@ class CNMDiscoveryService {
             Constants.pageKey: "\(page)"
         ]
 
-        CNMNetworkService.requestTMDb(
+        CNMNetworkService.requestMovie(
         version: .v4,
         path: "discover/movie",
         method: .get,

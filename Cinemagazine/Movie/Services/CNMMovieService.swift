@@ -17,7 +17,7 @@ class CNMMovieService {
             return
         }
 
-        CNMNetworkService.requestTMDb(
+        CNMNetworkService.requestMovie(
             version: .v3,
             path: "movie/\(id)",
             method: .get,

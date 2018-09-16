@@ -9,9 +9,9 @@
 import Foundation
 
 class CNMConfigurationManager {
-    static let APIAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjM2ZGY2ODUxZjU3ZWM3MjA4MjEyNWNkMTQyMjc5YiIsInN1YiI6IjViOTliNzZmYzNhMzY4MWQ3MDAwM2M0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SncDKjKbinvBrUoG0fRZHklOI5G4GE2CQY9-gIWrVWI"
-    static let APIKey = "2b36df6851f57ec72082125cd142279b"
-    static let serviceHost = "https://api.themoviedb.org"
+    static let movieAPIAccessToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyYjM2ZGY2ODUxZjU3ZWM3MjA4MjEyNWNkMTQyMjc5YiIsInN1YiI6IjViOTliNzZmYzNhMzY4MWQ3MDAwM2M0NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.SncDKjKbinvBrUoG0fRZHklOI5G4GE2CQY9-gIWrVWI"
+    static let movieAPIKey = "2b36df6851f57ec72082125cd142279b"
+    static let movieServiceHost = "https://api.themoviedb.org"
     static private(set) var region = "TW"
     static private(set) var language = "zh-TW"
 
@@ -38,7 +38,7 @@ class CNMConfigurationManager {
     }
 
     private func fetchRemoteConfigurations() {
-        CNMNetworkService.requestTMDb(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (data, err) in
+        CNMNetworkService.requestMovie(version: .v3, path: "configuration", method: .get, parameters: nil, body: nil, header: nil) { [weak self] (data, err) in
             self?.load(data: data)
         }
     }

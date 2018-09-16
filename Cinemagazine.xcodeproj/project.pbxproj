@@ -40,7 +40,7 @@
 		9B61C5DA214A9BB3002426A7 /* CinemagazineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5D9214A9BB3002426A7 /* CinemagazineTests.swift */; };
 		9B61C5E8214AA666002426A7 /* CNMDiscoveryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */; };
 		9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */; };
-		9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */; };
+		9BAA679D214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAA679C214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift */; };
 		9BAA679F214BAA0700CDA445 /* configuration.json in Resources */ = {isa = PBXBuildFile; fileRef = 9BAA679E214BAA0700CDA445 /* configuration.json */; };
 		E7AD87E9473EC723706FD195 /* Pods_Cinemagazine.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC4D2FC3FF751E4275ADD532 /* Pods_Cinemagazine.framework */; };
 		F0312E4005591A5AD1762AD0 /* Pods_CinemagazineTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A09023A994EBC6DC2E38A3A9 /* Pods_CinemagazineTests.framework */; };
@@ -96,7 +96,7 @@
 		9B61C5DB214A9BB3002426A7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B61C5E7214AA666002426A7 /* CNMDiscoveryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMDiscoveryViewController.swift; sourceTree = "<group>"; };
 		9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNetworkService.swift; sourceTree = "<group>"; };
-		9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMNetworkService+TMDbAPI.swift"; sourceTree = "<group>"; };
+		9BAA679C214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMNetworkService+MovieAPI.swift"; sourceTree = "<group>"; };
 		9BAA679E214BAA0700CDA445 /* configuration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = configuration.json; sourceTree = "<group>"; };
 		A09023A994EBC6DC2E38A3A9 /* Pods_CinemagazineTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CinemagazineTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC4D2FC3FF751E4275ADD532 /* Pods_Cinemagazine.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cinemagazine.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -321,7 +321,7 @@
 				9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */,
 				9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */,
 				9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */,
-				9BAA679C214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift */,
+				9BAA679C214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -532,7 +532,7 @@
 				9B4383CB214E008400AB5939 /* CNMMovieTitleEventHandler.swift in Sources */,
 				9B43839F214CB18F00AB5939 /* CNMTextViewModel.swift in Sources */,
 				9B43837F214BF02500AB5939 /* CNMPaginationDataModel.swift in Sources */,
-				9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */,
+				9BAA679D214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift in Sources */,
 				9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */,
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
 				9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */,
