@@ -10,6 +10,7 @@ import UIKit
 
 class CNMBaseCell: UICollectionViewCell {
     var data: Any?
+    var eventHandler: AnyObject?
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -29,5 +30,8 @@ class CNMBaseCell: UICollectionViewCell {
     }
     func populate(withData data: Any) {
         self.data = data
+    }
+    func populate(withEventHandler eventHandler: AnyObject) {
+        self.eventHandler = eventHandler
     }
 }

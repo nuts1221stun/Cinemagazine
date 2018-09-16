@@ -22,6 +22,7 @@ struct CNMSectionItem {
 struct CNMCellItem {
     private(set) var cellType: CNMBaseCell.Type
     private(set) var data: Any
+    private(set) var eventHandler: AnyObject?
     private(set) var numberOfItemsPerRow: Int = 1
 }
 
@@ -60,6 +61,8 @@ class CNMMovieViewController: UIViewController {
         collectionView.backgroundColor = UIColor.white
         collectionView.register(CNMImageCell.self,
                                 forCellWithReuseIdentifier: CNMImageCell.reuseIdentifier())
+        collectionView.register(CNMMovieTitleCell.self,
+                                forCellWithReuseIdentifier: CNMMovieTitleCell.reuseIdentifier())
         collectionView.register(CNMLabelCell.self,
                                 forCellWithReuseIdentifier: CNMLabelCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)
@@ -92,17 +95,30 @@ class CNMMovieViewController: UIViewController {
     }
 
     private func update(withMovie movie: CNMMovieDataModel) {
-        var items = [CNMCellItem]()
+        var sectionItems = [CNMSectionItem]()
         let backdrop = CNMImageViewModel(imagePath: movie.backdropPath ?? movie.posterPath, aspectRatio: 16.0 / 9.0)
-        let imageCellItem = CNMCellItem(cellType: CNMImageCell.self, data: backdrop, numberOfItemsPerRow: 1)
-        items.append(imageCellItem)
+        let imageCellItem = CNMCellItem(cellType: CNMImageCell.self,
+                                        data: backdrop,
+                                        eventHandler: nil,
+                                        numberOfItemsPerRow: 1)
+        let imageSectionItem = CNMSectionItem(items: [imageCellItem],
+                                              insets: .zero,
+                                              horizontalSpacing: 0,
+                                              verticalSpacing: 0)
+        sectionItems.append(imageSectionItem)
+
+        var items = [CNMCellItem]()
         let title = CNMTextViewModel(text: movie.title,
                                      font: UIFont.systemFont(ofSize: 24),
                                      textColor: UIColor.black,
                                      numberOfLines: 0,
                                      minNumberOfLines: 1,
-                                     insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-        let titleCellItem = CNMCellItem(cellType: CNMLabelCell.self, data: title, numberOfItemsPerRow: 1)
+                                     insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 8))
+        let titleEventHandler = CNMMovieTitleEventHandler()
+        let titleCellItem = CNMCellItem(cellType: CNMMovieTitleCell.self,
+                                        data: title,
+                                        eventHandler: titleEventHandler,
+                                        numberOfItemsPerRow: 1)
         items.append(titleCellItem)
         var strings = [String]()
         if let popularity = movie.popularity {
@@ -140,8 +156,11 @@ class CNMMovieViewController: UIViewController {
                 textColor: UIColor.black,
                 numberOfLines: 1,
                 minNumberOfLines: 1,
-                insets: UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16))
-            let item = CNMCellItem(cellType: CNMLabelCell.self, data: data, numberOfItemsPerRow: 1)
+                insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
+            let item = CNMCellItem(cellType: CNMLabelCell.self,
+                                   data: data,
+                                   eventHandler: nil,
+                                   numberOfItemsPerRow: 1)
             items.append(item)
         }
 
@@ -151,16 +170,21 @@ class CNMMovieViewController: UIViewController {
                 textColor: UIColor.black,
                 numberOfLines: 0,
                 minNumberOfLines: 0,
-                insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
-            let item = CNMCellItem(cellType: CNMLabelCell.self, data: data, numberOfItemsPerRow: 1)
+                insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0))
+            let item = CNMCellItem(cellType: CNMLabelCell.self,
+                                   data: data,
+                                   eventHandler: nil,
+                                   numberOfItemsPerRow: 1)
             items.append(item)
         }
 
         let sectionItem = CNMSectionItem(items: items,
-                                         insets: UIEdgeInsets(top: 0, left: 0, bottom: 16, right: 0),
+                                         insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16),
                                          horizontalSpacing: 0,
                                          verticalSpacing: 0)
-        self.sectionItems = [sectionItem]
+        sectionItems.append(sectionItem)
+
+        self.sectionItems = sectionItems
         collectionView.reloadData()
     }
 
@@ -190,6 +214,9 @@ extension CNMMovieViewController: UICollectionViewDataSource {
                                                       for: indexPath)
         if let baseCell = cell as? CNMBaseCell {
             baseCell.populate(withData: cellItem.data)
+            if let eventHandler = cellItem.eventHandler {
+                baseCell.populate(withEventHandler: eventHandler)
+            }
         }
         return cell
     }
