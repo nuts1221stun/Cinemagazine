@@ -8,7 +8,13 @@
 
 import UIKit
 
-class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
+class CNMPosterCell: CNMBaseCell {
+    override var data: Any? {
+        didSet {
+            poster = data as? CNMPosterViewModelProtocol
+        }
+    }
+    private var poster: CNMPosterViewModelProtocol?
     private var imageView = CNMImageView()
     private var titleLabel = CNMLabel()
     private var popularityLabel = CNMLabel()
@@ -23,6 +29,7 @@ class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
     override func commonInit() {
         super.commonInit()
 
+        imageView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         contentView.addSubview(imageView)
@@ -35,37 +42,36 @@ class CNMPosterCell: CNMBaseCell<CNMPosterViewModelProtocol> {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        let aspectRatio = data?.image?.aspectRatio ?? 0
+        let aspectRatio = poster?.image?.aspectRatio ?? 0
         let imageWidth = bounds.width
         let imageHeight = imageWidth / (aspectRatio > 0 ? aspectRatio : Constants.imageAspectRatio)
         imageView.frame = CGRect(x: 0, y: 0, width: imageWidth, height: imageHeight)
 
-        let titleHeight = titleLabel.font.lineHeight * CGFloat(Constants.titleNumberOfLines)
+        let titleHeight = titleLabel.font.lineHeight * CGFloat(poster?.title?.minNumberOfLines ?? 0)
         titleLabel.frame = CGRect(x: 0,
                                   y: imageView.frame.maxY + Constants.imageToTitleSpacing,
                                   width: imageWidth,
                                   height: titleHeight)
 
-        let popularityHeight = popularityLabel.font.lineHeight * CGFloat(Constants.popularityNumberOfLines)
+        let popularityHeight = popularityLabel.font.lineHeight * CGFloat(poster?.popularity?.minNumberOfLines ?? 0)
         popularityLabel.frame = CGRect(x: 0,
                                        y: titleLabel.frame.maxY + Constants.titleToPopularitySpacing,
                                        width: imageWidth,
                                        height: popularityHeight)
     }
     static let preRenderingCell = CNMPosterCell()
-    override class func sizeThatFits(_ size: CGSize, data: CNMPosterViewModelProtocol) -> CGSize {
+    override class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
         preRenderingCell.frame = CGRect(x: 0, y: 0, width: size.width, height: 100)
         preRenderingCell.populate(withData: data)
         preRenderingCell.setNeedsLayout()
         preRenderingCell.layoutIfNeeded()
         return CGSize(width: size.width, height: preRenderingCell.popularityLabel.frame.maxY)
     }
-    override func populate(withData data: CNMPosterViewModelProtocol) {
+    override func populate(withData data: Any) {
         super.populate(withData: data)
-        imageView.backgroundColor = UIColor.lightGray
-        imageView.imageUrl = data.image?.imageUrl(fittingWidth: bounds.width)
-        titleLabel.populate(withData: data.title)
-        popularityLabel.populate(withData: data.popularity)
+        imageView.populate(withData: poster?.image)
+        titleLabel.populate(withData: poster?.title)
+        popularityLabel.populate(withData: poster?.popularity)
     }
     override func prepareForReuse() {
         imageView.image = nil

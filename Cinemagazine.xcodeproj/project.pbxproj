@@ -26,6 +26,13 @@
 		9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */; };
 		9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */; };
 		9B4383B2214CFF2600AB5939 /* CNMNavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */; };
+		9B4383B6214D02BB00AB5939 /* CNMMovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383B5214D02BB00AB5939 /* CNMMovieViewController.swift */; };
+		9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383B8214D0ADF00AB5939 /* CNMMovieService.swift */; };
+		9B4383BB214D3A4200AB5939 /* CNMLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383BA214D3A4200AB5939 /* CNMLabelCell.swift */; };
+		9B4383BF214D5F4600AB5939 /* CNMImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383BE214D5F4500AB5939 /* CNMImageCell.swift */; };
+		9B4383C2214DFABC00AB5939 /* CNMMovieTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383C1214DFABC00AB5939 /* CNMMovieTitleCell.swift */; };
+		9B4383C8214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */; };
+		9B4383CB214E008400AB5939 /* CNMMovieTitleEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -71,6 +78,13 @@
 		9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationImageDataModel.swift; sourceTree = "<group>"; };
 		9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageSizeDataModel.swift; sourceTree = "<group>"; };
 		9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNavigationManager.swift; sourceTree = "<group>"; };
+		9B4383B5214D02BB00AB5939 /* CNMMovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieViewController.swift; sourceTree = "<group>"; };
+		9B4383B8214D0ADF00AB5939 /* CNMMovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieService.swift; sourceTree = "<group>"; };
+		9B4383BA214D3A4200AB5939 /* CNMLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMLabelCell.swift; sourceTree = "<group>"; };
+		9B4383BE214D5F4500AB5939 /* CNMImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageCell.swift; sourceTree = "<group>"; };
+		9B4383C1214DFABC00AB5939 /* CNMMovieTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieTitleCell.swift; sourceTree = "<group>"; };
+		9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMButtonEventHandlerProtocol.swift; sourceTree = "<group>"; };
+		9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieTitleEventHandler.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,6 +166,7 @@
 		9B43837B214BEFE300AB5939 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */,
 				9B438382214BF31E00AB5939 /* CNMCompanyDataModel.swift */,
 				9B438384214BF40300AB5939 /* CNMCountryDataModel.swift */,
 				9B438380214BF1DA00AB5939 /* CNMGenreDataModel.swift */,
@@ -169,8 +184,10 @@
 			isa = PBXGroup;
 			children = (
 				9B438392214C114900AB5939 /* CNMBaseCell.swift */,
+				9B4383BE214D5F4500AB5939 /* CNMImageCell.swift */,
 				9B4383A5214CE5BE00AB5939 /* CNMImageView.swift */,
 				9B4383A3214CB25C00AB5939 /* CNMLabel.swift */,
+				9B4383BA214D3A4200AB5939 /* CNMLabelCell.swift */,
 				9B438390214C10C900AB5939 /* CNMPosterCell.swift */,
 			);
 			path = Views;
@@ -182,6 +199,49 @@
 				9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		9B4383B3214D027D00AB5939 /* Movie */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383C9214E006E00AB5939 /* Models */,
+				9B4383B7214D0ACA00AB5939 /* Services */,
+				9B4383B4214D029B00AB5939 /* Controllers */,
+				9B4383C0214DFA9F00AB5939 /* Views */,
+			);
+			path = Movie;
+			sourceTree = "<group>";
+		};
+		9B4383B4214D029B00AB5939 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383B5214D02BB00AB5939 /* CNMMovieViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9B4383B7214D0ACA00AB5939 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383B8214D0ADF00AB5939 /* CNMMovieService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		9B4383C0214DFA9F00AB5939 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383C1214DFABC00AB5939 /* CNMMovieTitleCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9B4383C9214E006E00AB5939 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9B61C5B8214A9BAF002426A7 = {
@@ -210,6 +270,7 @@
 				9B43837A214BEFDC00AB5939 /* Common */,
 				9B61C5E9214AB048002426A7 /* Core */,
 				9B61C5E4214AA56A002426A7 /* Discovery */,
+				9B4383B3214D027D00AB5939 /* Movie */,
 				9BAA679B214B943800CDA445 /* Supporting Files */,
 				9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */,
 				9B61C5CB214A9BB3002426A7 /* Assets.xcassets */,
@@ -456,9 +517,12 @@
 				9B438376214BE3BB00AB5939 /* CNMDiscoveryService.swift in Sources */,
 				9B43839D214CB17400AB5939 /* CNMPosterViewModel.swift in Sources */,
 				9B43837D214BEFF300AB5939 /* CNMMovieDataModel.swift in Sources */,
+				9B4383BB214D3A4200AB5939 /* CNMLabelCell.swift in Sources */,
 				9B61C5E8214AA666002426A7 /* CNMDiscoveryViewController.swift in Sources */,
 				9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */,
+				9B4383BF214D5F4600AB5939 /* CNMImageCell.swift in Sources */,
 				9B43839B214CB15400AB5939 /* CNMImageViewModel.swift in Sources */,
+				9B4383C8214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift in Sources */,
 				9B438381214BF1DA00AB5939 /* CNMGenreDataModel.swift in Sources */,
 				9B438393214C114900AB5939 /* CNMBaseCell.swift in Sources */,
 				9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */,
@@ -470,13 +534,17 @@
 				9B4383B2214CFF2600AB5939 /* CNMNavigationManager.swift in Sources */,
 				9B438383214BF31E00AB5939 /* CNMCompanyDataModel.swift in Sources */,
 				9B438391214C10C900AB5939 /* CNMPosterCell.swift in Sources */,
+				9B4383C2214DFABC00AB5939 /* CNMMovieTitleCell.swift in Sources */,
 				9B4383B0214CEA8D00AB5939 /* CNMImageSizeDataModel.swift in Sources */,
 				9B4383A4214CB25C00AB5939 /* CNMLabel.swift in Sources */,
 				9B438385214BF40300AB5939 /* CNMCountryDataModel.swift in Sources */,
+				9B4383CB214E008400AB5939 /* CNMMovieTitleEventHandler.swift in Sources */,
 				9B43839F214CB18F00AB5939 /* CNMTextViewModel.swift in Sources */,
 				9B43837F214BF02500AB5939 /* CNMPaginationDataModel.swift in Sources */,
 				9BAA679D214B9C0200CDA445 /* CNMNetworkService+TMDbAPI.swift in Sources */,
+				9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */,
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
+				9B4383B6214D02BB00AB5939 /* CNMMovieViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

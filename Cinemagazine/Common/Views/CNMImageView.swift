@@ -10,6 +10,7 @@ import UIKit
 import SDWebImage
 
 class CNMImageView: UIImageView {
+    var aspectRatio: CGFloat = 1
     var imageUrl: String? {
         didSet {
             guard let imageUrlString = imageUrl,
@@ -30,5 +31,21 @@ class CNMImageView: UIImageView {
         didSet {
             imageUrl = nil
         }
+    }
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        if aspectRatio == 0 {
+            return .zero
+        }
+        var fittingSize = size
+        fittingSize.height = fittingSize.width / aspectRatio
+        return fittingSize
+    }
+}
+
+extension CNMImageView {
+    func populate(withData data: CNMImageViewModelProtocol?) {
+        let width = bounds.width == 0 ? UIScreen.main.bounds.width : bounds.width
+        imageUrl = data?.imageUrl(fittingWidth: width)
+        aspectRatio = data?.aspectRatio ?? 0
     }
 }
