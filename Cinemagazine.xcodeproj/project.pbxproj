@@ -34,6 +34,9 @@
 		9B4383C8214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */; };
 		9B4383CB214E008400AB5939 /* CNMMovieTitleEventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */; };
 		9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */; };
+		9B4383D1214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383D0214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift */; };
+		9B4383D3214E9B5000AB5939 /* CNMLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383D2214E9B5000AB5939 /* CNMLocationService.swift */; };
+		9B4383D5214E9B9800AB5939 /* CNMLocationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383D4214E9B9800AB5939 /* CNMLocationDataModel.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -86,6 +89,10 @@
 		9B4383C7214E001500AB5939 /* CNMButtonEventHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMButtonEventHandlerProtocol.swift; sourceTree = "<group>"; };
 		9B4383CA214E008400AB5939 /* CNMMovieTitleEventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieTitleEventHandler.swift; sourceTree = "<group>"; };
 		9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CNMConfigurationManager.swift; sourceTree = "<group>"; };
+		9B4383D0214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMNetworkService+LocationAPI.swift"; sourceTree = "<group>"; };
+		9B4383D2214E9B5000AB5939 /* CNMLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMLocationService.swift; sourceTree = "<group>"; };
+		9B4383D4214E9B9800AB5939 /* CNMLocationDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMLocationDataModel.swift; sourceTree = "<group>"; };
+		9B4383D6214E9D6400AB5939 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -141,6 +148,7 @@
 				9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */,
 				9B4383AD214CE93800AB5939 /* CNMConfigurationImageDataModel.swift */,
 				9B4383AF214CEA8D00AB5939 /* CNMImageSizeDataModel.swift */,
+				9B4383D4214E9B9800AB5939 /* CNMLocationDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 				9B4383B3214D027D00AB5939 /* Movie */,
 				9BAA679B214B943800CDA445 /* Supporting Files */,
 				9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */,
+				9B4383D6214E9D6400AB5939 /* Bridging-Header.h */,
 				9B61C5CB214A9BB3002426A7 /* Assets.xcassets */,
 				9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */,
 				9B61C5D0214A9BB3002426A7 /* Info.plist */,
@@ -319,8 +328,10 @@
 			isa = PBXGroup;
 			children = (
 				9B4383CC214E0BE600AB5939 /* CNMConfigurationManager.swift */,
+				9B4383D2214E9B5000AB5939 /* CNMLocationService.swift */,
 				9B4383B1214CFF2600AB5939 /* CNMNavigationManager.swift */,
 				9B61C5F2214AB593002426A7 /* CNMNetworkService.swift */,
+				9B4383D0214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift */,
 				9BAA679C214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift */,
 			);
 			path = Services;
@@ -520,6 +531,8 @@
 				9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */,
 				9B4383A6214CE5BE00AB5939 /* CNMImageView.swift in Sources */,
 				9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */,
+				9B4383D3214E9B5000AB5939 /* CNMLocationService.swift in Sources */,
+				9B4383D5214E9B9800AB5939 /* CNMLocationDataModel.swift in Sources */,
 				9B61C5F3214AB593002426A7 /* CNMNetworkService.swift in Sources */,
 				9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */,
 				9B4383B2214CFF2600AB5939 /* CNMNavigationManager.swift in Sources */,
@@ -535,6 +548,7 @@
 				9BAA679D214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift in Sources */,
 				9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */,
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
+				9B4383D1214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift in Sources */,
 				9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */,
 				9B4383B6214D02BB00AB5939 /* CNMMovieViewController.swift in Sources */,
 			);

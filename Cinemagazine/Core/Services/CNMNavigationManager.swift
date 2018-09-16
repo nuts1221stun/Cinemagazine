@@ -9,8 +9,15 @@
 import UIKit
 import SafariServices
 
+protocol CNMRootViewControllerProtocol {
+    func startLoading()
+}
+
 class CNMNavigationManager {
-    static let navigationController = UINavigationController(rootViewController: CNMDiscoveryViewController())
+    static let rootViewController = CNMDiscoveryViewController()
+    static let navigationController: UINavigationController = {
+        return UINavigationController(rootViewController: rootViewController)
+    }()
     static func showWebContent(withUrl url: String?) {
         guard let url = url, let webUrl = URL(string: url) else {
             return

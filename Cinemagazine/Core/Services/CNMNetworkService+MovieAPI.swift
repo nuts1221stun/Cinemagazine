@@ -52,7 +52,7 @@ extension Dictionary where Key == String, Value == String {
         if version == .v3 {
             self["api_key"] = CNMConfigurationManager.movieAPIKey
         }
-        self["region"] = CNMConfigurationManager.region
-        self["language"] = CNMConfigurationManager.language
+        self["region"] = CNMConfigurationManager.shared.region
+        self["language"] = CNMConfigurationManager.shared.language
     }
 }
