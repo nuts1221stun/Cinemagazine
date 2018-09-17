@@ -23,7 +23,7 @@ enum CNMImageSize: String {
     case unknown
 }
 struct CNMImageSizeDataModel {
-    private let sizes: [CNMImageSize]
+    let sizes: [CNMImageSize]
     var screenScale = UIScreen.main.scale
     private static let widthMap: [CNMImageSize: CGFloat] = [
         CNMImageSize.w45: 45,
