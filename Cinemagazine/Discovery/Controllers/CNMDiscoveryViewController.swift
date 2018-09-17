@@ -34,6 +34,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
+        collectionView.alwaysBounceVertical = true
         collectionView.register(CNMPosterCell.self,
                                 forCellWithReuseIdentifier: CNMPosterCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)

@@ -59,6 +59,7 @@ class CNMMovieViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
+        collectionView.alwaysBounceVertical = true
         collectionView.register(CNMImageCell.self,
                                 forCellWithReuseIdentifier: CNMImageCell.reuseIdentifier())
         collectionView.register(CNMMovieTitleCell.self,
@@ -76,10 +77,13 @@ class CNMMovieViewController: UIViewController {
     }
 
     @objc func refresh(isUserTriggered: Bool) {
-        fetchMovie()
+        refreshControl.beginRefreshing()
+        fetchMovie { [weak self] in
+            self?.refreshControl.endRefreshing()
+        }
     }
 
-    func fetchMovie() {
+    func fetchMovie(completion: @escaping () -> Void) {
         if isFetching {
             return
         }
@@ -88,9 +92,11 @@ class CNMMovieViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.isFetching = false
             guard let movie = movie, error == nil else {
+                completion()
                 return
             }
             strongSelf.movie = movie
+            completion()
         }
     }
 
