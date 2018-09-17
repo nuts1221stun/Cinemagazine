@@ -18,6 +18,13 @@ class CNMNavigationManager {
     static let navigationController: UINavigationController = {
         return UINavigationController(rootViewController: rootViewController)
     }()
+    static func showMovie(_ movie: CNMMovieDataModel?) {
+        guard let movie = movie else {
+            return
+        }
+        let vc = CNMMovieViewController(movie: movie)
+        navigationController.pushViewController(vc, animated: true)
+    }
     static func showWebContent(withUrl url: String?) {
         guard let url = url, let webUrl = URL(string: url) else {
             return
