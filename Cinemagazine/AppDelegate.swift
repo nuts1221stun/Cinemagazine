@@ -21,7 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
 
-        CNMConfigurationManager.shared.setUp()
+        let rootViewController = CNMNavigationManager.rootViewController
+        CNMConfigurationManager.shared.setUp { [weak rootViewController] in
+            rootViewController?.startLoading()
+        }
         return true
     }
 

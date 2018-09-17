@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CNMDiscoveryViewController: UIViewController {
+class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtocol {
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var refreshControl = UIRefreshControl()
     private var currentPage: Int = 0
@@ -38,7 +38,9 @@ class CNMDiscoveryViewController: UIViewController {
                                 forCellWithReuseIdentifier: CNMPosterCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
+    }
 
+    func startLoading() {
         refresh(isUserTriggered: false)
     }
 
@@ -166,7 +168,8 @@ extension CNMDiscoveryViewController: UICollectionViewDataSource {
 extension CNMDiscoveryViewController: UICollectionViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollOffsetY = scrollView.contentOffset.y + scrollView.bounds.height + Constants.loadMoreScrollThreshold
-        guard scrollOffsetY >= scrollView.contentSize.height else {
+        guard scrollView.contentSize.height > 0,
+            scrollOffsetY >= scrollView.contentSize.height else {
             return
         }
         loadMore()
