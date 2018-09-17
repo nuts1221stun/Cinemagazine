@@ -24,6 +24,7 @@ enum CNMImageSize: String {
 }
 struct CNMImageSizeDataModel {
     private let sizes: [CNMImageSize]
+    var screenScale = UIScreen.main.scale
     private static let widthMap: [CNMImageSize: CGFloat] = [
         CNMImageSize.w45: 45,
         CNMImageSize.w92: 92,
@@ -51,7 +52,7 @@ struct CNMImageSizeDataModel {
 
 extension CNMImageSizeDataModel {
     func size(fittingWidth width: CGFloat) -> CNMImageSize {
-        let actualWidth = width * UIScreen.main.scale
+        let actualWidth = width * screenScale
         var currentImageSize: CNMImageSize = .original
         var currentSizeValue = type(of: self).widthMap[currentImageSize] ?? .greatestFiniteMagnitude
         for (_, size) in sizes.enumerated().reversed() {

@@ -96,7 +96,8 @@ class CNMMovieViewController: UIViewController {
 
     private func update(withMovie movie: CNMMovieDataModel) {
         var sectionItems = [CNMSectionItem]()
-        let backdrop = CNMImageViewModel(imagePath: movie.backdropPath ?? movie.posterPath, aspectRatio: 16.0 / 9.0)
+        let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
+        let backdrop = CNMImageViewModel(imagePath: movie.backdropPath ?? movie.posterPath, aspectRatio: 16.0 / 9.0, imageHelper: imageHelper)
         let imageCellItem = CNMCellItem(cellType: CNMImageCell.self,
                                         data: backdrop,
                                         eventHandler: nil,
