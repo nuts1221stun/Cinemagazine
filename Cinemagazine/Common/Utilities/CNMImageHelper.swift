@@ -9,9 +9,16 @@
 import UIKit
 
 struct CNMImageHelper {
-    static func imageUrl(forType imageType: CNMImageType, path: String?, fittingWidth: CGFloat) -> String? {
+    private var imageConfiguration: CNMConfigurationImageDataModel?
+    init?(imageConfiguration: CNMConfigurationImageDataModel?) {
+        guard let config = imageConfiguration else {
+            return nil
+        }
+        self.imageConfiguration = config
+    }
+    func imageUrl(forType imageType: CNMImageType, path: String?, fittingWidth: CGFloat) -> String? {
         guard let path = path,
-            let imageConfig = CNMConfigurationManager.shared.configuration?.image,
+            let imageConfig = imageConfiguration,
             let baseUrl = imageConfig.baseUrl else {
             return nil
         }

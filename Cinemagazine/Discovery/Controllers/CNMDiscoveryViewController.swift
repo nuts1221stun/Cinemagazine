@@ -122,8 +122,9 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
             return nil
         }
         var posters = [CNMPosterViewModel]()
+        let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
         for movie in movies {
-            let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666)
+            let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666, imageHelper: imageHelper)
             let title = CNMTextViewModel(text: movie.title,
                                          font: UIFont.systemFont(ofSize: 14),
                                          textColor: UIColor.black,
