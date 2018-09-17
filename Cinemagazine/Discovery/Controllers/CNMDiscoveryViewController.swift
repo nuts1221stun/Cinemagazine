@@ -8,6 +8,16 @@
 
 import UIKit
 
+class CNMDiscoveryPosterEventHandler: CNMPosterEventHandlerProtocol {
+    private var movie: CNMMovieDataModel
+    init(movie: CNMMovieDataModel) {
+        self.movie = movie
+    }
+    func didTapPoster() {
+        CNMNavigationManager.showMovie(movie)
+    }
+}
+
 class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtocol {
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var refreshControl = UIRefreshControl()
@@ -16,6 +26,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
     private var totalResults: Int?
     private var movies = [CNMMovieDataModel]()
     private var posters = [CNMPosterViewModel]()
+    private var posterEventHandlers = [CNMDiscoveryPosterEventHandler]()
     private var isFetching = false
 
     struct Constants {
@@ -95,7 +106,9 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
 
         guard let movies = page.results,
-            let posters = self.posters(fromMovies: page.results) else {
+            let posterTuple = self.posters(fromMovies: page.results),
+            let posters = posterTuple.posters,
+            let posterEventHandlers = posterTuple.posterEventHandlers else {
                 return
         }
         var indexPaths = [IndexPath]()
@@ -109,6 +122,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
             self.posters = [CNMPosterViewModel]()
         }
         self.posters.append(contentsOf: posters)
+        self.posterEventHandlers.append(contentsOf: posterEventHandlers)
         self.movies.append(contentsOf: movies)
         if clearsPreviousPages {
             self.collectionView.reloadData()
@@ -117,11 +131,12 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
     }
 
-    func posters(fromMovies movies: [CNMMovieDataModel]?) -> [CNMPosterViewModel]? {
+    func posters(fromMovies movies: [CNMMovieDataModel]?) -> (posters: [CNMPosterViewModel]?, posterEventHandlers: [CNMDiscoveryPosterEventHandler]?)? {
         guard let movies = movies else {
             return nil
         }
         var posters = [CNMPosterViewModel]()
+        var posterEventHandlers = [CNMDiscoveryPosterEventHandler]()
         let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
         for movie in movies {
             let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666, imageHelper: imageHelper)
@@ -139,8 +154,11 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
                                                 insets: .zero)
             let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
             posters.append(poster)
+
+            let posterEventHandler = CNMDiscoveryPosterEventHandler(movie: movie)
+            posterEventHandlers.append(posterEventHandler)
         }
-        return posters
+        return (posters, posterEventHandlers)
     }
 
     override func viewWillLayoutSubviews() {
@@ -163,6 +181,10 @@ extension CNMDiscoveryViewController: UICollectionViewDataSource {
             let posterCell = cell as? CNMPosterCell {
             posterCell.populate(withData: posters[indexPath.item])
         }
+        if indexPath.item < posterEventHandlers.count,
+            let posterCell = cell as? CNMPosterCell {
+            posterCell.populate(withEventHandler: posterEventHandlers[indexPath.item])
+        }
         return cell
     }
 }
@@ -175,13 +197,6 @@ extension CNMDiscoveryViewController: UICollectionViewDelegate {
             return
         }
         loadMore()
-    }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard indexPath.item < movies.count else {
-            return
-        }
-        let vc = CNMMovieViewController(movie: movies[indexPath.item])
-        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

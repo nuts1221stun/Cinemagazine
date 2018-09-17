@@ -15,6 +15,12 @@ class CNMPosterCell: CNMBaseCell {
         }
     }
     private var poster: CNMPosterViewModelProtocol?
+    private var posterEventHandler: CNMPosterEventHandlerProtocol?
+    override var eventHandler: AnyObject? {
+        didSet {
+            posterEventHandler = eventHandler as? CNMPosterEventHandlerProtocol
+        }
+    }
     private var imageView = CNMImageView()
     private var titleLabel = CNMLabel()
     private var popularityLabel = CNMLabel()
@@ -28,6 +34,8 @@ class CNMPosterCell: CNMBaseCell {
     }
     override func commonInit() {
         super.commonInit()
+
+        isTapEnabled = true
 
         imageView.backgroundColor = UIColor(white: 0.9, alpha: 1)
         imageView.contentMode = .scaleAspectFill
@@ -75,5 +83,8 @@ class CNMPosterCell: CNMBaseCell {
     }
     override func prepareForReuse() {
         imageView.image = nil
+    }
+    override func didTapContent() {
+        posterEventHandler?.didTapPoster()
     }
 }
