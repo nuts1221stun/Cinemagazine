@@ -128,11 +128,11 @@ class CNMMovieViewController: UIViewController {
                                         numberOfItemsPerRow: 1)
         items.append(titleCellItem)
         var strings = [String]()
-        if let popularity = movie.popularity {
+        if let popularity = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity)  {
             strings.append("\(popularity)")
         }
-        if let duration = movie.runtime {
-            strings.append("\(duration)")
+        if let duration = CNMTimeFormatter.durationString(fromTimeInMinutes: movie.runtime) {
+            strings.append(duration)
         }
         if let genres = movie.genres, genres.count > 0 {
             var string = ""
