@@ -36,7 +36,7 @@ struct CNMMovieDataModel: Decodable {
     enum CodingKeys : String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
-        case genres = "total_pages"
+        case genres = "genres"
         case homepage
         case id
         case imdbId = "imdb_id"

@@ -146,7 +146,8 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
                                          numberOfLines: 2,
                                          minNumberOfLines: 2,
                                          insets: .zero)
-            let popularity = CNMTextViewModel(text: "\(movie.popularity ?? 0)",
+            let popularityString = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity) ?? ""
+            let popularity = CNMTextViewModel(text: popularityString,
                                                 font: UIFont.systemFont(ofSize: 12),
                                                 textColor: UIColor.black,
                                                 numberOfLines: 1,

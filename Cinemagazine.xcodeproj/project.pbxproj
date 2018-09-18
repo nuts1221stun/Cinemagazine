@@ -40,6 +40,8 @@
 		9B4383DA214FF44700AB5939 /* CNMImageHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383D9214FF44700AB5939 /* CNMImageHelperTests.swift */; };
 		9B4383DE2150063000AB5939 /* CNMImageSizeDataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383DD2150063000AB5939 /* CNMImageSizeDataModelTests.swift */; };
 		9B4383E0215014D700AB5939 /* CNMPosterEventHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383DF215014D700AB5939 /* CNMPosterEventHandlerProtocol.swift */; };
+		9B4383E2215083A600AB5939 /* CNMTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B4383E1215083A500AB5939 /* CNMTimeFormatter.swift */; };
+		9B51ED92215086EF00186919 /* CNMNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B51ED91215086EF00186919 /* CNMNumberFormatter.swift */; };
 		9B61C5C5214A9BAF002426A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */; };
 		9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CB214A9BB3002426A7 /* Assets.xcassets */; };
 		9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */; };
@@ -99,6 +101,8 @@
 		9B4383D9214FF44700AB5939 /* CNMImageHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageHelperTests.swift; sourceTree = "<group>"; };
 		9B4383DD2150063000AB5939 /* CNMImageSizeDataModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMImageSizeDataModelTests.swift; sourceTree = "<group>"; };
 		9B4383DF215014D700AB5939 /* CNMPosterEventHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMPosterEventHandlerProtocol.swift; sourceTree = "<group>"; };
+		9B4383E1215083A500AB5939 /* CNMTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMTimeFormatter.swift; sourceTree = "<group>"; };
+		9B51ED91215086EF00186919 /* CNMNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNumberFormatter.swift; sourceTree = "<group>"; };
 		9B61C5C1214A9BAF002426A7 /* Cinemagazine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinemagazine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B61C5C4214A9BAF002426A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9B61C5CB214A9BB3002426A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 			isa = PBXGroup;
 			children = (
 				9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */,
+				9B51ED91215086EF00186919 /* CNMNumberFormatter.swift */,
+				9B4383E1215083A500AB5939 /* CNMTimeFormatter.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -558,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9B51ED92215086EF00186919 /* CNMNumberFormatter.swift in Sources */,
 				9B438376214BE3BB00AB5939 /* CNMDiscoveryService.swift in Sources */,
 				9B43839D214CB17400AB5939 /* CNMPosterViewModel.swift in Sources */,
 				9B43837D214BEFF300AB5939 /* CNMMovieDataModel.swift in Sources */,
@@ -592,6 +599,7 @@
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
 				9B4383D1214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift in Sources */,
 				9B4383CD214E0BE600AB5939 /* CNMConfigurationManager.swift in Sources */,
+				9B4383E2215083A600AB5939 /* CNMTimeFormatter.swift in Sources */,
 				9B4383B6214D02BB00AB5939 /* CNMMovieViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
