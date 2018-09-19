@@ -28,13 +28,13 @@ class CNMLabelCell: CNMBaseCell {
         super.layoutSubviews()
         label.frame = bounds
     }
-    override class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
+    override class func sizeThatFits(_ size: CGSize, data: Any?) -> CGSize {
         preRenderingCell.populate(withData: data)
         var fittingSize = preRenderingCell.label.sizeThatFits(size)
         fittingSize.width = size.width
         return fittingSize
     }
-    override func populate(withData data: Any) {
+    override func populate(withData data: Any?) {
         super.populate(withData: data)
         label.populate(withData: text)
     }

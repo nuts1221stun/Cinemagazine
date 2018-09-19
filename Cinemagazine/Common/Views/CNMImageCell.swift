@@ -31,13 +31,13 @@ class CNMImageCell: CNMBaseCell {
         super.layoutSubviews()
         imageView.frame = bounds
     }
-    override class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
+    override class func sizeThatFits(_ size: CGSize, data: Any?) -> CGSize {
         preRenderingCell.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         preRenderingCell.populate(withData: data)
         let fittingSize = preRenderingCell.imageView.sizeThatFits(size)
         return fittingSize
     }
-    override func populate(withData data: Any) {
+    override func populate(withData data: Any?) {
         super.populate(withData: data)
         imageView.populate(withData: image)
     }

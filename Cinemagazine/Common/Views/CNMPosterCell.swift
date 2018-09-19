@@ -68,14 +68,14 @@ class CNMPosterCell: CNMBaseCell {
                                        height: popularityHeight)
     }
     static let preRenderingCell = CNMPosterCell()
-    override class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
+    override class func sizeThatFits(_ size: CGSize, data: Any?) -> CGSize {
         preRenderingCell.frame = CGRect(x: 0, y: 0, width: size.width, height: 100)
         preRenderingCell.populate(withData: data)
         preRenderingCell.setNeedsLayout()
         preRenderingCell.layoutIfNeeded()
         return CGSize(width: size.width, height: preRenderingCell.popularityLabel.frame.maxY)
     }
-    override func populate(withData data: Any) {
+    override func populate(withData data: Any?) {
         super.populate(withData: data)
         imageView.populate(withData: poster?.image)
         titleLabel.populate(withData: poster?.title)
