@@ -52,7 +52,7 @@ class CNMMovieTitleCell: CNMBaseCell {
         label.frame = labelFrame
     }
     static let preRenderingCell = CNMMovieTitleCell()
-    override class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
+    override class func sizeThatFits(_ size: CGSize, data: Any?) -> CGSize {
         preRenderingCell.frame = CGRect(x: 0, y: 0, width: size.width, height: 100)
         preRenderingCell.populate(withData: data)
         let buttonSize = preRenderingCell.buttonSize
@@ -61,7 +61,7 @@ class CNMMovieTitleCell: CNMBaseCell {
         let height = max(labelSize.height, buttonSize.height + (preRenderingCell.title?.insets?.top ?? 0))
         return CGSize(width: size.width, height: height)
     }
-    override func populate(withData data: Any) {
+    override func populate(withData data: Any?) {
         super.populate(withData: data)
         label.populate(withData: title)
     }

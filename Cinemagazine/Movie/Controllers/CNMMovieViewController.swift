@@ -8,25 +8,11 @@
 
 import UIKit
 
-struct CNMSectionItem {
-    private(set) var items = [CNMCellItem]()
-    var insets = UIEdgeInsets.zero
-    var horizontalSpacing: CGFloat = 0
-    var verticalSpacing: CGFloat = 0
-    mutating func insert(items: [CNMCellItem]?) {
-        guard let items = items else { return }
-        self.items.append(contentsOf: items)
-    }
-}
-
-struct CNMCellItem {
-    private(set) var cellType: CNMBaseCell.Type
-    private(set) var data: Any
-    private(set) var eventHandler: AnyObject?
-    private(set) var numberOfItemsPerRow: Int = 1
-}
-
 class CNMMovieViewController: UIViewController {
+    enum Section: String {
+        case image
+        case info
+    }
     private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private var refreshControl = UIRefreshControl()
     private var movie: CNMMovieDataModel {
@@ -34,7 +20,9 @@ class CNMMovieViewController: UIViewController {
             update(withMovie: movie)
         }
     }
-    private var sectionItems = [CNMSectionItem]()
+    private var collectionController: CNMCollectionController?
+    private var imageSection = CNMCollectionSection(identifier: Section.image.rawValue)
+    private var infoSection = CNMCollectionSection(identifier: Section.info.rawValue)
     private var isFetching = false
 
     struct Constants {
@@ -56,8 +44,6 @@ class CNMMovieViewController: UIViewController {
 
         refreshControl.addTarget(self, action: #selector(didPullRefreshControl), for: .valueChanged)
 
-        collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
         collectionView.alwaysBounceVertical = true
         collectionView.register(CNMImageCell.self,
@@ -69,6 +55,16 @@ class CNMMovieViewController: UIViewController {
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
 
+        collectionController = CNMCollectionController(collectionView: collectionView)
+        imageSection.insets = .zero
+        imageSection.horizontalSpacing = 0
+        imageSection.verticalSpacing = 0
+        collectionController?.add(section: imageSection)
+        infoSection.insets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        infoSection.horizontalSpacing = 0
+        infoSection.verticalSpacing = 0
+        collectionController?.add(section: infoSection)
+
         refresh(isUserTriggered: false)
     }
 
@@ -77,9 +73,13 @@ class CNMMovieViewController: UIViewController {
     }
 
     @objc func refresh(isUserTriggered: Bool) {
-        refreshControl.beginRefreshing()
+        if isUserTriggered {
+            refreshControl.beginRefreshing()
+        }
         fetchMovie { [weak self] in
-            self?.refreshControl.endRefreshing()
+            if isUserTriggered {
+                self?.refreshControl.endRefreshing()
+            }
         }
     }
 
@@ -101,20 +101,15 @@ class CNMMovieViewController: UIViewController {
     }
 
     private func update(withMovie movie: CNMMovieDataModel) {
-        var sectionItems = [CNMSectionItem]()
+
         let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
         let backdrop = CNMImageViewModel(imagePath: movie.backdropPath ?? movie.posterPath, aspectRatio: 16.0 / 9.0, imageHelper: imageHelper)
-        let imageCellItem = CNMCellItem(cellType: CNMImageCell.self,
-                                        data: backdrop,
-                                        eventHandler: nil,
-                                        numberOfItemsPerRow: 1)
-        let imageSectionItem = CNMSectionItem(items: [imageCellItem],
-                                              insets: .zero,
-                                              horizontalSpacing: 0,
-                                              verticalSpacing: 0)
-        sectionItems.append(imageSectionItem)
+        let imageItem = CNMCollectionItem(cellType: CNMImageCell.self,
+                                          data: backdrop,
+                                          eventHandler: nil,
+                                          numberOfItemsPerRow: 1)
 
-        var items = [CNMCellItem]()
+        var items = [CNMCollectionItem]()
         let title = CNMTextViewModel(text: movie.title,
                                      font: UIFont.systemFont(ofSize: 24),
                                      textColor: UIColor.black,
@@ -122,10 +117,10 @@ class CNMMovieViewController: UIViewController {
                                      minNumberOfLines: 1,
                                      insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 8))
         let titleEventHandler = CNMMovieTitleEventHandler()
-        let titleCellItem = CNMCellItem(cellType: CNMMovieTitleCell.self,
-                                        data: title,
-                                        eventHandler: titleEventHandler,
-                                        numberOfItemsPerRow: 1)
+        let titleCellItem = CNMCollectionItem(cellType: CNMMovieTitleCell.self,
+                                              data: title,
+                                              eventHandler: titleEventHandler,
+                                              numberOfItemsPerRow: 1)
         items.append(titleCellItem)
         var strings = [String]()
         if let popularity = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity)  {
@@ -164,10 +159,10 @@ class CNMMovieViewController: UIViewController {
                 numberOfLines: 1,
                 minNumberOfLines: 1,
                 insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-            let item = CNMCellItem(cellType: CNMLabelCell.self,
-                                   data: data,
-                                   eventHandler: nil,
-                                   numberOfItemsPerRow: 1)
+            let item = CNMCollectionItem(cellType: CNMLabelCell.self,
+                                         data: data,
+                                         eventHandler: nil,
+                                         numberOfItemsPerRow: 1)
             items.append(item)
         }
 
@@ -178,21 +173,15 @@ class CNMMovieViewController: UIViewController {
                 numberOfLines: 0,
                 minNumberOfLines: 0,
                 insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0))
-            let item = CNMCellItem(cellType: CNMLabelCell.self,
-                                   data: data,
-                                   eventHandler: nil,
-                                   numberOfItemsPerRow: 1)
+            let item = CNMCollectionItem(cellType: CNMLabelCell.self,
+                                         data: data,
+                                         eventHandler: nil,
+                                         numberOfItemsPerRow: 1)
             items.append(item)
         }
 
-        let sectionItem = CNMSectionItem(items: items,
-                                         insets: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16),
-                                         horizontalSpacing: 0,
-                                         verticalSpacing: 0)
-        sectionItems.append(sectionItem)
-
-        self.sectionItems = sectionItems
-        collectionView.reloadData()
+        imageSection.update(items: [imageItem])
+        infoSection.update(items: items)
     }
 
     override func viewWillLayoutSubviews() {
@@ -200,68 +189,3 @@ class CNMMovieViewController: UIViewController {
         collectionView.frame = view.bounds
     }
 }
-
-extension CNMMovieViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return sectionItems.count
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard section < sectionItems.count else { return 0 }
-        return sectionItems[section].items.count
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        guard indexPath.section < sectionItems.count,
-            indexPath.item < sectionItems[indexPath.section].items.count else {
-            return UICollectionViewCell()
-        }
-        let cellItem = sectionItems[indexPath.section].items[indexPath.item]
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellItem.cellType.reuseIdentifier(),
-                                                      for: indexPath)
-        if let baseCell = cell as? CNMBaseCell {
-            baseCell.populate(withData: cellItem.data)
-            if let eventHandler = cellItem.eventHandler {
-                baseCell.populate(withEventHandler: eventHandler)
-            }
-        }
-        return cell
-    }
-}
-
-extension CNMMovieViewController: UICollectionViewDelegate {
-}
-
-extension CNMMovieViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        guard section < sectionItems.count else { return 0 }
-        return sectionItems[section].horizontalSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        guard section < sectionItems.count else { return 0 }
-        return sectionItems[section].verticalSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        guard section < sectionItems.count else { return .zero }
-        return sectionItems[section].insets
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard indexPath.section < sectionItems.count,
-            indexPath.item < sectionItems[indexPath.section].items.count else {
-                return .zero
-        }
-        let sectionItem = sectionItems[indexPath.section]
-        let cellItem = sectionItem.items[indexPath.item]
-
-        var width = collectionView.bounds.width
-        let sectionInsets = sectionItem.insets
-        width -= (sectionItem.horizontalSpacing + sectionInsets.left + sectionInsets.right)
-        width -= (collectionView.contentInset.left + collectionView.contentInset.right)
-        width /= CGFloat(cellItem.numberOfItemsPerRow)
-        var size = CGSize(width: width, height: 0)
-        size = cellItem.cellType.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-                                               data: cellItem.data)
-        return size
-    }
-}
-

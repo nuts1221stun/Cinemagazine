@@ -34,13 +34,13 @@ class CNMBaseCell: UICollectionViewCell {
         tapRecognizer = recognizer
         isTapEnabled = true
     }
-    class func sizeThatFits(_ size: CGSize, data: Any) -> CGSize {
+    class func sizeThatFits(_ size: CGSize, data: Any?) -> CGSize {
         return .zero
     }
-    func populate(withData data: Any) {
+    func populate(withData data: Any?) {
         self.data = data
     }
-    func populate(withEventHandler eventHandler: AnyObject) {
+    func populate(withEventHandler eventHandler: AnyObject?) {
         self.eventHandler = eventHandler
     }
     @objc func didTapContent() {
