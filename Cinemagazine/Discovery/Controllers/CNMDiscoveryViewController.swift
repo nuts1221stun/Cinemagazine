@@ -24,10 +24,10 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
     private var currentPage: Int = 0
     private var totalPages: Int?
     private var totalResults: Int?
-    private var movies = [CNMMovieDataModel]()
-    private var posters = [CNMPosterViewModel]()
-    private var posterEventHandlers = [CNMDiscoveryPosterEventHandler]()
     private var isFetching = false
+
+    private var collectionController: CNMCollectionController?
+    private var movieSection = CNMCollectionSection(identifier: "\(String(describing: self))-Movie")
 
     struct Constants {
         static let horizontalSpacing: CGFloat = 16
@@ -40,16 +40,43 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
 
+        setUpCollectionView()
+        setUpCollectionController()
+    }
+
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        collectionView.frame = view.bounds
+    }
+
+    private func setUpCollectionView() {
         refreshControl.addTarget(self, action: #selector(didPullRefreshControl), for: .valueChanged)
 
-        collectionView.dataSource = self
-        collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
         collectionView.alwaysBounceVertical = true
         collectionView.register(CNMPosterCell.self,
                                 forCellWithReuseIdentifier: CNMPosterCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
+    }
+
+    private func setUpCollectionController() {
+        collectionController = CNMCollectionController(collectionView: collectionView)
+        let plugin = CNMCollectionPlugin(identifier: String(describing: self))
+        plugin.scrollViewDidScroll = { [weak self] (_ scrollView: UIScrollView) in
+            let scrollOffsetY = scrollView.contentOffset.y + scrollView.bounds.height + Constants.loadMoreScrollThreshold
+            guard let strongSelf = self,
+                scrollView.contentSize.height > 0,
+                scrollOffsetY >= scrollView.contentSize.height else {
+                    return
+            }
+            strongSelf.loadMore()
+        }
+        collectionController?.add(plugin: plugin)
+        movieSection.insets = Constants.sectionInsets
+        movieSection.horizontalSpacing = Constants.horizontalSpacing
+        movieSection.verticalSpacing = Constants.verticalSpacing
+        collectionController?.add(section: movieSection)
     }
 
     func startLoading() {
@@ -106,37 +133,21 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
 
         guard let movies = page.results,
-            let posterTuple = self.posters(fromMovies: page.results),
-            let posters = posterTuple.posters,
-            let posterEventHandlers = posterTuple.posterEventHandlers else {
-                return
-        }
-        var indexPaths = [IndexPath]()
-        let start = self.posters.count
-        for (index, _) in posters.enumerated() {
-            let indexPath = IndexPath(item: start + index, section: 0)
-            indexPaths.append(indexPath)
+            let cellItems = cellItems(forMovies: movies) else {
+            return
         }
         if clearsPreviousPages {
-            self.movies = [CNMMovieDataModel]()
-            self.posters = [CNMPosterViewModel]()
-        }
-        self.posters.append(contentsOf: posters)
-        self.posterEventHandlers.append(contentsOf: posterEventHandlers)
-        self.movies.append(contentsOf: movies)
-        if clearsPreviousPages {
-            self.collectionView.reloadData()
+            movieSection.update(items: cellItems)
         } else {
-            self.collectionView.insertItems(at: indexPaths)
+            movieSection.insert(items: cellItems)
         }
     }
 
-    func posters(fromMovies movies: [CNMMovieDataModel]?) -> (posters: [CNMPosterViewModel]?, posterEventHandlers: [CNMDiscoveryPosterEventHandler]?)? {
+    func cellItems(forMovies movies: [CNMMovieDataModel]?) -> [CNMCollectionItem]? {
         guard let movies = movies else {
             return nil
         }
-        var posters = [CNMPosterViewModel]()
-        var posterEventHandlers = [CNMDiscoveryPosterEventHandler]()
+        var cellItems = [CNMCollectionItem]()
         let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
         for movie in movies {
             let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666, imageHelper: imageHelper)
@@ -148,80 +159,16 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
                                          insets: .zero)
             let popularityString = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity) ?? ""
             let popularity = CNMTextViewModel(text: popularityString,
-                                                font: UIFont.systemFont(ofSize: 12),
-                                                textColor: UIColor.black,
-                                                numberOfLines: 1,
-                                                minNumberOfLines: 1,
-                                                insets: .zero)
+                                              font: UIFont.systemFont(ofSize: 12),
+                                              textColor: UIColor.black,
+                                              numberOfLines: 1,
+                                              minNumberOfLines: 1,
+                                              insets: .zero)
             let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
-            posters.append(poster)
-
             let posterEventHandler = CNMDiscoveryPosterEventHandler(movie: movie)
-            posterEventHandlers.append(posterEventHandler)
+            let cellItem = CNMCollectionItem(cellType: CNMPosterCell.self, data: poster, eventHandler: posterEventHandler, numberOfItemsPerRow: 2)
+            cellItems.append(cellItem)
         }
-        return (posters, posterEventHandlers)
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-}
-
-extension CNMDiscoveryViewController: UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return movies.count
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CNMPosterCell.reuseIdentifier(),
-                                                      for: indexPath)
-        if indexPath.item < posters.count,
-            let posterCell = cell as? CNMPosterCell {
-            posterCell.populate(withData: posters[indexPath.item])
-        }
-        if indexPath.item < posterEventHandlers.count,
-            let posterCell = cell as? CNMPosterCell {
-            posterCell.populate(withEventHandler: posterEventHandlers[indexPath.item])
-        }
-        return cell
-    }
-}
-
-extension CNMDiscoveryViewController: UICollectionViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let scrollOffsetY = scrollView.contentOffset.y + scrollView.bounds.height + Constants.loadMoreScrollThreshold
-        guard scrollView.contentSize.height > 0,
-            scrollOffsetY >= scrollView.contentSize.height else {
-            return
-        }
-        loadMore()
-    }
-}
-
-extension CNMDiscoveryViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return Constants.horizontalSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return Constants.verticalSpacing
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return Constants.sectionInsets
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var width = collectionView.bounds.width
-        let sectionInsets = Constants.sectionInsets
-        width -= (Constants.horizontalSpacing + sectionInsets.left + sectionInsets.right)
-        width -= (collectionView.contentInset.left + collectionView.contentInset.right)
-        width /= 2
-        var size = CGSize(width: width, height: 0)
-        if indexPath.item < posters.count {
-            size = CNMPosterCell.sizeThatFits(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-                                              data: posters[indexPath.item])
-        }
-        return size
+        return cellItems
     }
 }
