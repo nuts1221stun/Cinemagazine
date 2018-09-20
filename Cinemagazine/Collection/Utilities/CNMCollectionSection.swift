@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CNMCollectionSectionProtocol {
+protocol CNMCollectionSectionProtocol: class {
     var identifier: String { get }
     var items: [CNMCollectionItem] { get }
     var insets: UIEdgeInsets { get }
