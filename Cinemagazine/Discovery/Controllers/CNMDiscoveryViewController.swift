@@ -20,7 +20,7 @@ class CNMDiscoveryPosterEventHandler: CNMPosterEventHandlerProtocol {
 }
 
 class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtocol {
-    private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private var collectionView = UICollectionView(frame: .zero, collectionViewLayout: CNMCollectionViewFlowLayout())
     private var refreshControl = UIRefreshControl()
     private var currentPage: Int = 0
     private var totalPages: Int?
