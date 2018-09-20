@@ -15,6 +15,6 @@ struct CNMTimeFormatter {
         }
         let hour = Int(minutes / 60)
         let minute = minutes % 60
-        return  "\(hour):\(minute)"
+        return String(format: "%02d:%02d", hour, minute)
     }
 }
