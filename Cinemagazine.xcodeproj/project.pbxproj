@@ -10,6 +10,7 @@
 		9B2E53F02153E3FC00088305 /* CNMAspectRatioLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53EF2153E3FC00088305 /* CNMAspectRatioLayout.swift */; };
 		9B2E53F22153E9F300088305 /* LabelLayout+TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F12153E9F300088305 /* LabelLayout+TextViewModel.swift */; };
 		9B2E53F42153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F32153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift */; };
+		9B2E53F6215404B400088305 /* CNMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F5215404B400088305 /* CNMCollectionViewFlowLayout.swift */; };
 		9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */; };
 		9B438376214BE3BB00AB5939 /* CNMDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B438375214BE3BB00AB5939 /* CNMDiscoveryService.swift */; };
 		9B43837D214BEFF300AB5939 /* CNMMovieDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43837C214BEFF300AB5939 /* CNMMovieDataModel.swift */; };
@@ -72,6 +73,7 @@
 		9B2E53EF2153E3FC00088305 /* CNMAspectRatioLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMAspectRatioLayout.swift; sourceTree = "<group>"; };
 		9B2E53F12153E9F300088305 /* LabelLayout+TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LabelLayout+TextViewModel.swift"; sourceTree = "<group>"; };
 		9B2E53F32153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMAspectRatioLayout+ImageViewModel.swift"; sourceTree = "<group>"; };
+		9B2E53F5215404B400088305 /* CNMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationDataModel.swift; sourceTree = "<group>"; };
 		9B438375214BE3BB00AB5939 /* CNMDiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMDiscoveryService.swift; sourceTree = "<group>"; };
 		9B43837C214BEFF300AB5939 /* CNMMovieDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieDataModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				9B2E53F32153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift */,
+				9B2E53F5215404B400088305 /* CNMCollectionViewFlowLayout.swift */,
 				9B4383AB214CE88400AB5939 /* CNMImageHelper.swift */,
 				9B51ED91215086EF00186919 /* CNMNumberFormatter.swift */,
 				9B4383E1215083A500AB5939 /* CNMTimeFormatter.swift */,
@@ -609,6 +612,7 @@
 				9B438381214BF1DA00AB5939 /* CNMGenreDataModel.swift in Sources */,
 				9B4383AC214CE88400AB5939 /* CNMImageHelper.swift in Sources */,
 				9B4383A6214CE5BE00AB5939 /* CNMImageView.swift in Sources */,
+				9B2E53F6215404B400088305 /* CNMCollectionViewFlowLayout.swift in Sources */,
 				9B4383AE214CE93800AB5939 /* CNMConfigurationImageDataModel.swift in Sources */,
 				9B4383D3214E9B5000AB5939 /* CNMLocationService.swift in Sources */,
 				9B4383D5214E9B9800AB5939 /* CNMLocationDataModel.swift in Sources */,
