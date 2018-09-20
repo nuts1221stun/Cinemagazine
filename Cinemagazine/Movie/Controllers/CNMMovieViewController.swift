@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LayoutKit
 
 class CNMMovieViewController: UIViewController {
     enum Section: String {
@@ -24,9 +25,7 @@ class CNMMovieViewController: UIViewController {
     private var imageSection = CNMCollectionSection(identifier: Section.image.rawValue)
     private var infoSection = CNMCollectionSection(identifier: Section.info.rawValue)
     private var isFetching = false
-
-    struct Constants {
-    }
+    private var bookEventHandler: CNMButtonEventHandlerProtocol?
 
     init(movie: CNMMovieDataModel) {
         self.movie = movie
@@ -46,12 +45,6 @@ class CNMMovieViewController: UIViewController {
 
         collectionView.backgroundColor = UIColor.white
         collectionView.alwaysBounceVertical = true
-        collectionView.register(CNMImageCell.self,
-                                forCellWithReuseIdentifier: CNMImageCell.reuseIdentifier())
-        collectionView.register(CNMMovieTitleCell.self,
-                                forCellWithReuseIdentifier: CNMMovieTitleCell.reuseIdentifier())
-        collectionView.register(CNMLabelCell.self,
-                                forCellWithReuseIdentifier: CNMLabelCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
 
@@ -60,7 +53,7 @@ class CNMMovieViewController: UIViewController {
         imageSection.horizontalSpacing = 0
         imageSection.verticalSpacing = 0
         collectionController?.add(section: imageSection)
-        infoSection.insets = UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16)
+        infoSection.insets = UIEdgeInsets(top: 16, left: 16, bottom: 24, right: 16)
         infoSection.horizontalSpacing = 0
         infoSection.verticalSpacing = 0
         collectionController?.add(section: infoSection)
@@ -104,22 +97,42 @@ class CNMMovieViewController: UIViewController {
 
         let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
         let backdrop = CNMImageViewModel(imagePath: movie.backdropPath ?? movie.posterPath, aspectRatio: 16.0 / 9.0, imageHelper: imageHelper)
-        let imageItem = CNMCollectionItem(cellType: CNMImageCell.self,
-                                          data: backdrop,
-                                          eventHandler: nil,
+        let imageLayout = CNMAspectRatioLayout<CNMImageView>(image: backdrop,
+                                                             alignment: Alignment.topFill)
+        let imageItem = CNMCollectionItem(layout: imageLayout,
                                           numberOfItemsPerRow: 1)
 
         var items = [CNMCollectionItem]()
         let title = CNMTextViewModel(text: movie.title,
                                      font: UIFont.systemFont(ofSize: 24),
                                      textColor: UIColor.black,
-                                     numberOfLines: 0,
-                                     minNumberOfLines: 1,
-                                     insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 8))
-        let titleEventHandler = CNMMovieTitleEventHandler()
-        let titleCellItem = CNMCollectionItem(cellType: CNMMovieTitleCell.self,
-                                              data: title,
-                                              eventHandler: titleEventHandler,
+                                     numberOfLines: 0)
+        let titleLayout = LabelLayout<UILabel>(text: title,
+                                               alignment: Alignment.topFill)
+        let titleInsetLayout = InsetLayout<UIView>(insets: UIEdgeInsets(top: 4, left: 0, bottom: 16, right: 0),
+                                                   alignment: Alignment.topLeading,
+                                                   sublayout: titleLayout)
+        let bookEventHandler = CNMMovieBookEventHandler()
+        let bookButtonConfig = { (button: UIButton) in
+            button.backgroundColor = UIColor.blue
+            button.tintColor = UIColor.white
+            button.addTarget(bookEventHandler,
+                             action: #selector(bookEventHandler.didTapButton),
+                             for: .touchUpInside)
+        }
+        let bookButtonLayout = ButtonLayout<UIButton>(type: .system, title: "Book Now",
+                                            font: UIFont.systemFont(ofSize: 18),
+                                            contentEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
+                                            alignment: Alignment.topTrailing,
+                                            flexibility: Flexibility.low,
+                                            config: bookButtonConfig)
+        let titleStackLayout = StackLayout<UIView>(axis: .horizontal,
+                                                   spacing: 8,
+                                                   distribution: .fillFlexing,
+                                                   alignment: Alignment.topFill,
+                                                   sublayouts: [titleInsetLayout, bookButtonLayout])
+
+        let titleCellItem = CNMCollectionItem(layout: titleStackLayout,
                                               numberOfItemsPerRow: 1)
         items.append(titleCellItem)
         var strings = [String]()
@@ -156,12 +169,14 @@ class CNMMovieViewController: UIViewController {
             let data = CNMTextViewModel(text: "\(string)",
                 font: UIFont.systemFont(ofSize: 14),
                 textColor: UIColor.black,
-                numberOfLines: 1,
-                minNumberOfLines: 1,
-                insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0))
-            let item = CNMCollectionItem(cellType: CNMLabelCell.self,
-                                         data: data,
-                                         eventHandler: nil,
+                numberOfLines: 1)
+            let labelLayout = LabelLayout<UILabel>(text: data,
+                                                   alignment: Alignment.topFill)
+            let insetLayout = InsetLayout(insets: UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 0),
+                                          alignment: Alignment.topFill,
+                                          sublayout: labelLayout)
+
+            let item = CNMCollectionItem(layout: insetLayout,
                                          numberOfItemsPerRow: 1)
             items.append(item)
         }
@@ -170,12 +185,13 @@ class CNMMovieViewController: UIViewController {
             let data = CNMTextViewModel(text: overview,
                 font: UIFont.systemFont(ofSize: 14),
                 textColor: UIColor.black,
-                numberOfLines: 0,
-                minNumberOfLines: 0,
-                insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0))
-            let item = CNMCollectionItem(cellType: CNMLabelCell.self,
-                                         data: data,
-                                         eventHandler: nil,
+                numberOfLines: 0)
+            let labelLayout = LabelLayout<UILabel>(text: data,
+                                                   alignment: Alignment.topFill)
+            let insetLayout = InsetLayout(insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0),
+                                          alignment: Alignment.topFill,
+                                          sublayout: labelLayout)
+            let item = CNMCollectionItem(layout: insetLayout,
                                          numberOfItemsPerRow: 1)
             items.append(item)
         }

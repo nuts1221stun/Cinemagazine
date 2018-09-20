@@ -7,17 +7,22 @@
 //
 
 import Foundation
+import LayoutKit
 
-protocol CNMCollectionItemProtocol {
-    var cellType: CNMBaseCell.Type { get }
-    var data: Any? { get }
-    var eventHandler: AnyObject? { get }
+protocol CNMCollectionItemProtocol: class {
+    var layout: Layout? { get }
+    var arrangement: LayoutArrangement? { get set }
     var numberOfItemsPerRow: Int { get }
 }
 
-struct CNMCollectionItem: CNMCollectionItemProtocol {
-    var cellType: CNMBaseCell.Type
-    var data: Any?
-    var eventHandler: AnyObject?
+class CNMCollectionItem: CNMCollectionItemProtocol {
     var numberOfItemsPerRow: Int
+    var layout: Layout?
+    var arrangement: LayoutArrangement?
+
+    init(layout: Layout?,
+         numberOfItemsPerRow: Int) {
+        self.numberOfItemsPerRow = numberOfItemsPerRow
+        self.layout = layout
+    }
 }

@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import LayoutKit
 
 class CNMCollectionController: NSObject {
+    struct Constants {
+        static let cellType = UICollectionViewCell.self
+        static let reuseIdentifier = "Cell"
+    }
     private(set) var collectionView: UICollectionView
     private(set) var plugins = [CNMCollectionPluginProtocol]()
     private(set) var sections = [CNMCollectionSectionProtocol]()
     private(set) var sectionIdentifierSet = Set<String>()
     init(collectionView: UICollectionView) {
         self.collectionView = collectionView
+        collectionView.register(Constants.cellType,
+                                forCellWithReuseIdentifier: Constants.reuseIdentifier)
         super.init()
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -31,12 +38,10 @@ class CNMCollectionController: NSObject {
         plugins.remove(at: index)
     }
     func add(section: CNMCollectionSectionProtocol) {
-        var section = section
         section.delegate = self
         sections.append(section)
     }
     func insert(section: CNMCollectionSectionProtocol, at index: Int) {
-        var section = section
         section.delegate = self
         sections.insert(section, at: index)
     }
@@ -44,7 +49,7 @@ class CNMCollectionController: NSObject {
         guard index < sections.count else {
             return
         }
-        var section = sections[index]
+        let section = sections[index]
         section.delegate = nil
         sections.remove(at: index)
     }
@@ -72,11 +77,8 @@ extension CNMCollectionController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         let cellItem = sections[indexPath.section].items[indexPath.item]
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellItem.cellType.reuseIdentifier(), for: indexPath)
-        if let baseCell = cell as? CNMBaseCell {
-            baseCell.populate(withData: cellItem.data)
-            baseCell.populate(withEventHandler: cellItem.eventHandler)
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.reuseIdentifier, for: indexPath)
+        cellItem.arrangement?.makeViews(in: cell.contentView, direction: .leftToRight)
         return cell
     }
 }
@@ -94,9 +96,9 @@ extension CNMCollectionController: UICollectionViewDelegateFlowLayout {
         width -= (sectionItem.horizontalSpacing + sectionInsets.left + sectionInsets.right)
         width -= (collectionView.contentInset.left + collectionView.contentInset.right)
         width /= CGFloat(cellItem.numberOfItemsPerRow)
-        let boundingSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
-        let size = cellItem.cellType.sizeThatFits(boundingSize, data: cellItem.data)
-        return size
+        let arrangement = cellItem.layout?.arrangement(origin: .zero, width: width, height: nil)
+        cellItem.arrangement = arrangement
+        return arrangement?.frame.size ?? .zero
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         guard section < sections.count else {

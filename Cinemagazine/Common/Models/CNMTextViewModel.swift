@@ -13,8 +13,8 @@ protocol CNMTextViewModelProtocol {
     var font: UIFont? { get }
     var textColor: UIColor? { get }
     var numberOfLines: Int? { get }
-    var minNumberOfLines: Int? { get }
-    var insets: UIEdgeInsets? { get }
+//    var minNumberOfLines: Int? { get }
+//    var insets: UIEdgeInsets? { get }
 }
 
 struct CNMTextViewModel: CNMTextViewModelProtocol {
@@ -22,16 +22,16 @@ struct CNMTextViewModel: CNMTextViewModelProtocol {
     var font: UIFont?
     var textColor: UIColor?
     var numberOfLines: Int?
-    var minNumberOfLines: Int?
-    var insets: UIEdgeInsets?
+//    var minNumberOfLines: Int?
+//    var insets: UIEdgeInsets?
 }
 
-extension CNMLabel {
-    func populate(withData data: CNMTextViewModelProtocol?) {
-        text = data?.text
-        font = data?.font
-        textColor = data?.textColor
-        numberOfLines = data?.numberOfLines ?? 0
-        insets = data?.insets ?? .zero
-    }
-}
+//extension CNMLabel {
+//    func populate(withData data: CNMTextViewModelProtocol?) {
+//        text = data?.text
+//        font = data?.font
+//        textColor = data?.textColor
+//        numberOfLines = data?.numberOfLines ?? 0
+//        insets = data?.insets ?? .zero
+//    }
+//}

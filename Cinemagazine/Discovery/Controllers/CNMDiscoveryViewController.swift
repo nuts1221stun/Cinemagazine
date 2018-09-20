@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import LayoutKit
 
 class CNMDiscoveryPosterEventHandler: CNMPosterEventHandlerProtocol {
     private var movie: CNMMovieDataModel
     init(movie: CNMMovieDataModel) {
         self.movie = movie
     }
-    func didTapPoster() {
+    @objc func didTapPoster() {
         CNMNavigationManager.showMovie(movie)
     }
 }
@@ -54,8 +55,6 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
 
         collectionView.backgroundColor = UIColor.white
         collectionView.alwaysBounceVertical = true
-        collectionView.register(CNMPosterCell.self,
-                                forCellWithReuseIdentifier: CNMPosterCell.reuseIdentifier())
         collectionView.addSubview(refreshControl)
         view.addSubview(collectionView)
     }
@@ -143,6 +142,32 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
     }
 
+    func layouts(forMovies movies: [CNMMovieDataModel]?) -> [Layout]? {
+        guard let movies = movies else {
+            return nil
+        }
+        var layouts = [Layout]()
+        let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
+        for movie in movies {
+            let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666, imageHelper: imageHelper)
+            let title = CNMTextViewModel(text: movie.title,
+                                         font: UIFont.systemFont(ofSize: 14),
+                                         textColor: UIColor.black,
+                                         numberOfLines: 2)
+            let popularityString = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity) ?? ""
+            let popularity = CNMTextViewModel(text: popularityString,
+                                              font: UIFont.systemFont(ofSize: 12),
+                                              textColor: UIColor.black,
+                                              numberOfLines: 1)
+            let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
+            let posterEventHandler = CNMDiscoveryPosterEventHandler(movie: movie)
+            if let posterLayout = CNMPosterLayout(poster: poster, eventHandler: posterEventHandler) {
+                layouts.append(posterLayout)
+            }
+        }
+        return layouts
+    }
+
     func cellItems(forMovies movies: [CNMMovieDataModel]?) -> [CNMCollectionItem]? {
         guard let movies = movies else {
             return nil
@@ -154,19 +179,17 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
             let title = CNMTextViewModel(text: movie.title,
                                          font: UIFont.systemFont(ofSize: 14),
                                          textColor: UIColor.black,
-                                         numberOfLines: 2,
-                                         minNumberOfLines: 2,
-                                         insets: .zero)
+                                         numberOfLines: 2)
             let popularityString = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity) ?? ""
             let popularity = CNMTextViewModel(text: popularityString,
                                               font: UIFont.systemFont(ofSize: 12),
                                               textColor: UIColor.black,
-                                              numberOfLines: 1,
-                                              minNumberOfLines: 1,
-                                              insets: .zero)
+                                              numberOfLines: 1)
             let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
             let posterEventHandler = CNMDiscoveryPosterEventHandler(movie: movie)
-            let cellItem = CNMCollectionItem(cellType: CNMPosterCell.self, data: poster, eventHandler: posterEventHandler, numberOfItemsPerRow: 2)
+            let posterLayout = CNMPosterLayout(poster: poster, eventHandler: posterEventHandler)
+            let cellItem = CNMCollectionItem(layout: posterLayout,
+                                             numberOfItemsPerRow: 2)
             cellItems.append(cellItem)
         }
         return cellItems

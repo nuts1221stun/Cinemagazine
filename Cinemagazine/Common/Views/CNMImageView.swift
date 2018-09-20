@@ -32,6 +32,19 @@ class CNMImageView: UIImageView {
             imageUrl = nil
         }
     }
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        commonInit()
+    }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        commonInit()
+    }
+    private func commonInit() {
+        contentMode = .scaleAspectFill
+        clipsToBounds = true
+        backgroundColor = UIColor(white: 0.9, alpha: 1)
+    }
     override func sizeThatFits(_ size: CGSize) -> CGSize {
         if aspectRatio == 0 {
             return .zero
