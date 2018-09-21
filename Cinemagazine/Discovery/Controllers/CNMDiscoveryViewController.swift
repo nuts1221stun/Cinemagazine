@@ -35,7 +35,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
     struct Constants {
         static let minNumberOfMovies = 40
         static let horizontalSpacing: CGFloat = 16
-        static let verticalSpacing: CGFloat = 16
+        static let verticalSpacing: CGFloat = 32
         static let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         static let loadMoreScrollThreshold: CGFloat = 100
     }

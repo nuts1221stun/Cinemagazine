@@ -162,11 +162,13 @@ class CNMMovieViewController: UIViewController {
         if let languages = movie.spokenLanguages, languages.count > 0 {
             var string = ""
             for language in languages {
-                guard let languageName = language.name else {
-                    continue
+                var languageName = language.name
+                if let languageCode = language.iso6391 {
+                    languageName = Locale.current.localizedString(forLanguageCode: languageCode)
                 }
+                guard let name = languageName else { continue }
                 let separator = string.count > 0 ? ", " : ""
-                string = "\(string)\(separator)\(languageName)"
+                string = "\(string)\(separator)\(name)"
             }
             strings.append(string)
         }
@@ -194,7 +196,7 @@ class CNMMovieViewController: UIViewController {
                 numberOfLines: 0)
             let labelLayout = LabelLayout<UILabel>(text: data,
                                                    alignment: Alignment.topFill)
-            let insetLayout = InsetLayout(insets: UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0),
+            let insetLayout = InsetLayout(insets: UIEdgeInsets(top: 16, left: 0, bottom: 8, right: 0),
                                           alignment: Alignment.topFill,
                                           sublayout: labelLayout)
             let item = CNMCollectionItem(layout: insetLayout,
