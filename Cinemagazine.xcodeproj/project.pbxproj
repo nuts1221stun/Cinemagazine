@@ -12,6 +12,8 @@
 		9B2E53F42153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F32153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift */; };
 		9B2E53F6215404B400088305 /* CNMCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F5215404B400088305 /* CNMCollectionViewFlowLayout.swift */; };
 		9B2E53F9215477FB00088305 /* CNMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E53F8215477FB00088305 /* CNMNavigationController.swift */; };
+		9B2E540221548FBE00088305 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9B2E540421548FBE00088305 /* Localizable.strings */; };
+		9B2E54082154905500088305 /* String+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2E54072154905500088305 /* String+Localization.swift */; };
 		9B438371214BAEE500AB5939 /* CNMConfigurationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */; };
 		9B438376214BE3BB00AB5939 /* CNMDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B438375214BE3BB00AB5939 /* CNMDiscoveryService.swift */; };
 		9B43837D214BEFF300AB5939 /* CNMMovieDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B43837C214BEFF300AB5939 /* CNMMovieDataModel.swift */; };
@@ -76,6 +78,10 @@
 		9B2E53F32153FBE500088305 /* CNMAspectRatioLayout+ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CNMAspectRatioLayout+ImageViewModel.swift"; sourceTree = "<group>"; };
 		9B2E53F5215404B400088305 /* CNMCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		9B2E53F8215477FB00088305 /* CNMNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMNavigationController.swift; sourceTree = "<group>"; };
+		9B2E540321548FBE00088305 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9B2E54052154900A00088305 /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		9B2E54062154900A00088305 /* zh-Hant-TW */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant-TW"; path = "zh-Hant-TW.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		9B2E54072154905500088305 /* String+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Localization.swift"; sourceTree = "<group>"; };
 		9B438370214BAEE500AB5939 /* CNMConfigurationDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMConfigurationDataModel.swift; sourceTree = "<group>"; };
 		9B438375214BE3BB00AB5939 /* CNMDiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMDiscoveryService.swift; sourceTree = "<group>"; };
 		9B43837C214BEFF300AB5939 /* CNMMovieDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNMMovieDataModel.swift; sourceTree = "<group>"; };
@@ -168,6 +174,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		9B2E53FF21548F9200088305 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				9B2E540421548FBE00088305 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		9B43836F214BAED500AB5939 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +247,7 @@
 				9B51ED91215086EF00186919 /* CNMNumberFormatter.swift */,
 				9B4383E1215083A500AB5939 /* CNMTimeFormatter.swift */,
 				9B2E53F12153E9F300088305 /* LabelLayout+TextViewModel.swift */,
+				9B2E54072154905500088305 /* String+Localization.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -412,6 +427,7 @@
 		9BAA679B214B943800CDA445 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9B2E53FF21548F9200088305 /* Localization */,
 				9BAA679E214BAA0700CDA445 /* configuration.json */,
 			);
 			path = "Supporting Files";
@@ -512,6 +528,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hant-TW",
 			);
 			mainGroup = 9B61C5B8214A9BAF002426A7;
 			productRefGroup = 9B61C5C2214A9BAF002426A7 /* Products */;
@@ -530,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B61C5CF214A9BB3002426A7 /* LaunchScreen.storyboard in Resources */,
+				9B2E540221548FBE00088305 /* Localizable.strings in Resources */,
 				9BAA679F214BAA0700CDA445 /* configuration.json in Resources */,
 				9B61C5CC214A9BB3002426A7 /* Assets.xcassets in Resources */,
 			);
@@ -643,6 +661,7 @@
 				9B43837F214BF02500AB5939 /* CNMPaginationDataModel.swift in Sources */,
 				9BAA679D214B9C0200CDA445 /* CNMNetworkService+MovieAPI.swift in Sources */,
 				9BEA53B121528ACD00BC359D /* CNMCollectionPlugin.swift in Sources */,
+				9B2E54082154905500088305 /* String+Localization.swift in Sources */,
 				9B4383B9214D0ADF00AB5939 /* CNMMovieService.swift in Sources */,
 				9B438387214BF57600AB5939 /* CNMLanguageDataModel.swift in Sources */,
 				9B4383D1214E993C00AB5939 /* CNMNetworkService+LocationAPI.swift in Sources */,
@@ -675,10 +694,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9B2E540421548FBE00088305 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9B2E540321548FBE00088305 /* en */,
+				9B2E54062154900A00088305 /* zh-Hant-TW */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		9B61C5CD214A9BB3002426A7 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9B61C5CE214A9BB3002426A7 /* Base */,
+				9B2E54052154900A00088305 /* zh-Hant-TW */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -690,6 +719,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -750,6 +780,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

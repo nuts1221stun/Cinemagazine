@@ -50,7 +50,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        title = "Discovery"
+        title = "Discovery".cnm_localized()
     }
 
     override func viewWillLayoutSubviews() {

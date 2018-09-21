@@ -125,12 +125,13 @@ class CNMMovieViewController: UIViewController {
                              action: #selector(bookEventHandler.didTapButton),
                              for: .touchUpInside)
         }
-        let bookButtonLayout = ButtonLayout<UIButton>(type: .system, title: "Book Now",
-                                            font: UIFont.systemFont(ofSize: 18),
-                                            contentEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
-                                            alignment: Alignment.topTrailing,
-                                            flexibility: Flexibility.low,
-                                            config: bookButtonConfig)
+        let bookButtonLayout = ButtonLayout<UIButton>(type: .system,
+                                                      title: "Book Now".cnm_localized(),
+                                                      font: UIFont.systemFont(ofSize: 18),
+                                                      contentEdgeInsets: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8),
+                                                      alignment: Alignment.topTrailing,
+                                                      flexibility: Flexibility.low,
+                                                      config: bookButtonConfig)
         let titleStackLayout = StackLayout<UIView>(axis: .horizontal,
                                                    spacing: 8,
                                                    distribution: .fillFlexing,
