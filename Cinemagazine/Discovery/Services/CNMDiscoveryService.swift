@@ -27,22 +27,22 @@ class CNMDiscoveryService {
             dateFormatter.dateFormat = "yyyy-MM-dd"
             return dateFormatter
         } ()
+        static let week: TimeInterval = 60 * 60 * 24 * 7
         static let dateKey = "primary_release_date"
         static let sortKey = "sort_by"
         static let pageKey = "page"
     }
     static func fetchMovies(
+        startDate: Date? = nil,
+        endDate: Date? = nil,
         sortBy: SortBy = .releaseDate,
         order: Order = .desc,
         page: Int = 1,
         callback: @escaping (_ page: CNMPaginationDataModel?, _ error: Error?) -> Void) {
 
         let dateFormatter = Constants.dateFormatter
-        let week: TimeInterval = 60 * 60 * 24 * 7
-        var startDate = Date()
-        startDate.addTimeInterval(-week)
-        var endDate = Date()
-        endDate.addTimeInterval(week)
+        let startDate = startDate ?? Date().addingTimeInterval(-Constants.week)
+        let endDate = endDate ?? startDate.addingTimeInterval(Constants.week * 2)
         let startDateString = dateFormatter.string(from: startDate)
         let endDateString = dateFormatter.string(from: endDate)
 

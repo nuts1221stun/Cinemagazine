@@ -24,13 +24,16 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
     private var refreshControl = UIRefreshControl()
     private var currentPage: Int = 0
     private var totalPages: Int?
-    private var totalResults: Int?
+    private var totalResults: Int = 0
+    private var lastStartDate: Date?
+    private var lastEndDate: Date?
     private var isFetching = false
 
     private var collectionController: CNMCollectionController?
     private var movieSection = CNMCollectionSection(identifier: "\(String(describing: self))-Movie")
 
     struct Constants {
+        static let minNumberOfMovies = 40
         static let horizontalSpacing: CGFloat = 16
         static let verticalSpacing: CGFloat = 16
         static let sectionInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
@@ -43,6 +46,11 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
 
         setUpCollectionView()
         setUpCollectionController()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = "Discovery"
     }
 
     override func viewWillLayoutSubviews() {
@@ -91,6 +99,11 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
             self.refreshControl.beginRefreshing()
         }
         self.currentPage = 0
+        self.totalResults = 0
+        let week: TimeInterval = 60 * 60 * 24 * 7
+        let endDate = Date().addingTimeInterval(week)
+        self.lastStartDate = endDate.addingTimeInterval(-week * 2)
+        self.lastEndDate = endDate
         fetchMovies { [weak self] (page, error) in
             guard let strongSelf = self else { return }
             if isUserTriggered {
@@ -107,12 +120,34 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
     }
 
-    func fetchMovies(completion: @escaping (_ page: CNMPaginationDataModel?, _ error: Error?) -> Void) {
-        if isFetching || currentPage >= (totalPages ?? Int.max) {
+    func fetchMovies(
+        completion: @escaping (_ page: CNMPaginationDataModel?, _ error: Error?) -> Void) {
+        if isFetching {
             return
         }
+
+        var endDate = lastEndDate
+        var startDate = lastStartDate
+        if currentPage >= (totalPages ?? Int.max) {
+            if totalResults >= Constants.minNumberOfMovies {
+                return
+            }
+            currentPage = 0
+            if let date = lastStartDate {
+                let week: TimeInterval = 60 * 60 * 24 * 7
+                endDate = date.addingTimeInterval(-60 * 60 * 24)
+                startDate = endDate?.addingTimeInterval(-week * 2)
+                lastStartDate = startDate
+                lastEndDate = endDate
+            }
+        }
         isFetching = true
-        CNMDiscoveryService.fetchMovies(sortBy: .releaseDate, order: .desc, page: currentPage + 1) { [weak self] (page, error) in
+        CNMDiscoveryService.fetchMovies(
+            startDate: startDate,
+            endDate: endDate,
+            sortBy: .releaseDate,
+            order: .desc,
+            page: currentPage + 1) { [weak self] (page, error) in
             guard let strongSelf = self else { return }
             strongSelf.isFetching = false
             completion(page, error)
@@ -125,7 +160,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
         if self.currentPage == 0 {
             self.totalPages = page.totalPages
-            self.totalResults = page.totalResults
+            self.totalResults += (page.totalResults ?? 0)
         }
         if let currentPage = page.page {
             self.currentPage = currentPage
