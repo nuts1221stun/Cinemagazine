@@ -50,6 +50,7 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
         title = "Discovery".cnm_localized()
     }
 
@@ -71,13 +72,10 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         collectionController = CNMCollectionController(collectionView: collectionView)
         let plugin = CNMCollectionPlugin(identifier: String(describing: self))
         plugin.scrollViewDidScroll = { [weak self] (_ scrollView: UIScrollView) in
-            let scrollOffsetY = scrollView.contentOffset.y + scrollView.bounds.height + Constants.loadMoreScrollThreshold
-            guard let strongSelf = self,
-                scrollView.contentSize.height > 0,
-                scrollOffsetY >= scrollView.contentSize.height else {
-                    return
+            guard let strongSelf = self else {
+                return
             }
-            strongSelf.loadMore()
+            strongSelf.loadMoreIfNeeded()
         }
         collectionController?.add(plugin: plugin)
         movieSection.insets = Constants.sectionInsets
@@ -109,11 +107,18 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
             if isUserTriggered {
                 strongSelf.refreshControl.endRefreshing()
             }
-            strongSelf.add(page: page, clearsPreviousPages: true)
+            strongSelf.add(page: page, clearsPreviousPages: true, completion: { [weak strongSelf] in
+                strongSelf?.loadMoreIfNeeded()
+            })
         }
     }
 
-    func loadMore() {
+    func loadMoreIfNeeded() {
+        let scrollOffsetY = collectionView.contentOffset.y + collectionView.bounds.height + Constants.loadMoreScrollThreshold
+        guard collectionView.contentSize.height > 0,
+            scrollOffsetY >= collectionView.contentSize.height else {
+            return
+        }
         fetchMovies { [weak self] (page, error) in
             guard let strongSelf = self else { return }
             strongSelf.add(page: page)
@@ -154,8 +159,11 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
     }
 
-    private func add(page: CNMPaginationDataModel?, clearsPreviousPages: Bool = false) {
+    private func add(page: CNMPaginationDataModel?,
+                     clearsPreviousPages: Bool = false,
+                     completion: (() -> Void)? = nil) {
         guard let page = page else {
+            completion?()
             return
         }
         if self.currentPage == 0 {
@@ -168,12 +176,13 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
 
         guard let movies = page.results,
             let cellItems = cellItems(forMovies: movies) else {
+            completion?()
             return
         }
         if clearsPreviousPages {
-            movieSection.update(items: cellItems)
+            movieSection.update(items: cellItems, completion: completion)
         } else {
-            movieSection.insert(items: cellItems)
+            movieSection.insert(items: cellItems, completion: completion)
         }
     }
 

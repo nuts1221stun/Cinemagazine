@@ -63,6 +63,7 @@ class CNMMovieViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isTranslucent = false
         title = movie.title
     }
 
