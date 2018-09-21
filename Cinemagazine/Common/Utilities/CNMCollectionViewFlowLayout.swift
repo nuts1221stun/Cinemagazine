@@ -10,9 +10,15 @@ import UIKit
 
 class CNMCollectionViewFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        let layoutAttributes = super.layoutAttributesForElements(in: rect)
-        guard let attributes = layoutAttributes else {
-            return layoutAttributes
+        guard let attrs = super.layoutAttributesForElements(in: rect) else {
+            return nil
+        }
+        var attributes = [UICollectionViewLayoutAttributes]()
+        for attr in attrs {
+            guard let attrCopy = attr.copy() as? UICollectionViewLayoutAttributes else {
+                continue
+            }
+            attributes.append(attrCopy)
         }
         var centerYToAttributesMap = [Int: Set<UICollectionViewLayoutAttributes>]()
         var centerYToMinYMap = [Int: CGFloat]()

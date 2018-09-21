@@ -61,6 +61,11 @@ class CNMMovieViewController: UIViewController {
         refresh(isUserTriggered: false)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        title = movie.title
+    }
+
     @objc func didPullRefreshControl() {
         refresh(isUserTriggered: true)
     }

@@ -16,7 +16,7 @@ protocol CNMRootViewControllerProtocol {
 class CNMNavigationManager {
     static let rootViewController = CNMDiscoveryViewController()
     static let navigationController: UINavigationController = {
-        return UINavigationController(rootViewController: rootViewController)
+        return CNMNavigationController(rootViewController: rootViewController)
     }()
     static func showMovie(_ movie: CNMMovieDataModel?) {
         guard let movie = movie else {
