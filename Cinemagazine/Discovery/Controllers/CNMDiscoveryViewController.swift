@@ -177,32 +177,6 @@ class CNMDiscoveryViewController: UIViewController, CNMRootViewControllerProtoco
         }
     }
 
-    func layouts(forMovies movies: [CNMMovieDataModel]?) -> [Layout]? {
-        guard let movies = movies else {
-            return nil
-        }
-        var layouts = [Layout]()
-        let imageHelper = CNMImageHelper(imageConfiguration: CNMConfigurationManager.shared.configuration?.image)
-        for movie in movies {
-            let image = CNMImageViewModel(imagePath: movie.posterPath ?? movie.backdropPath, aspectRatio: 0.666, imageHelper: imageHelper)
-            let title = CNMTextViewModel(text: movie.title,
-                                         font: UIFont.systemFont(ofSize: 14),
-                                         textColor: UIColor.black,
-                                         numberOfLines: 2)
-            let popularityString = CNMNumberFormatter.popularityString(fromPopularity: movie.popularity) ?? ""
-            let popularity = CNMTextViewModel(text: popularityString,
-                                              font: UIFont.systemFont(ofSize: 12),
-                                              textColor: UIColor.black,
-                                              numberOfLines: 1)
-            let poster = CNMPosterViewModel(image: image, title: title, popularity: popularity)
-            let posterEventHandler = CNMDiscoveryPosterEventHandler(movie: movie)
-            if let posterLayout = CNMPosterLayout(poster: poster, eventHandler: posterEventHandler) {
-                layouts.append(posterLayout)
-            }
-        }
-        return layouts
-    }
-
     func cellItems(forMovies movies: [CNMMovieDataModel]?) -> [CNMCollectionItem]? {
         guard let movies = movies else {
             return nil
