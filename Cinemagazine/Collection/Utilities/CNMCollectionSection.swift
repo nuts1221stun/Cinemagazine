@@ -18,9 +18,9 @@ protocol CNMCollectionSectionProtocol: class {
 }
 
 protocol CNMCollectionSectionDelegate: class {
-    func collectionSection(sectionDidSetItems section: CNMCollectionSectionProtocol)
-    func collectionSection(section: CNMCollectionSectionProtocol, didInsertItemsAtIndices indices: [Int])
-    func collectionSection(section: CNMCollectionSectionProtocol, didRemoveItemsAtIndices indices: [Int])
+    func collectionSection(sectionDidSetItems section: CNMCollectionSectionProtocol, completion: (() -> Void)?)
+    func collectionSection(section: CNMCollectionSectionProtocol, didInsertItemsAtIndices indices: [Int], completion: (() -> Void)?)
+    func collectionSection(section: CNMCollectionSectionProtocol, didRemoveItemsAtIndices indices: [Int], completion: (() -> Void)?)
 }
 
 class CNMCollectionSection: CNMCollectionSectionProtocol {
@@ -35,27 +35,27 @@ class CNMCollectionSection: CNMCollectionSectionProtocol {
         self.identifier = identifier
     }
 
-    func update(items: [CNMCollectionItem]?) {
+    func update(items: [CNMCollectionItem]?, completion: (() -> Void)? = nil) {
         guard let items = items else { return }
         self.items = items
-        delegate?.collectionSection(sectionDidSetItems: self)
+        delegate?.collectionSection(sectionDidSetItems: self, completion: completion)
     }
 
-    func insert(items: [CNMCollectionItem]?) {
+    func insert(items: [CNMCollectionItem]?, completion: (() -> Void)? = nil) {
         guard let items = items else { return }
         let currentNumberOfItems = self.items.count
         let indices = [Int](currentNumberOfItems..<(currentNumberOfItems + items.count))
         self.items.append(contentsOf: items)
-        delegate?.collectionSection(section: self, didInsertItemsAtIndices: indices)
+        delegate?.collectionSection(section: self, didInsertItemsAtIndices: indices, completion: completion)
     }
 
-    func remove(itemsAtIndices indexSet: IndexSet) {
+    func remove(itemsAtIndices indexSet: IndexSet, completion: (() -> Void)? = nil) {
         var items = self.items
         let indices = indexSet.sorted()
         for (_, index) in indices.enumerated().reversed() {
             items.remove(at: index)
         }
         self.items = items
-        delegate?.collectionSection(section: self, didRemoveItemsAtIndices: indices)
+        delegate?.collectionSection(section: self, didRemoveItemsAtIndices: indices, completion: completion)
     }
 }

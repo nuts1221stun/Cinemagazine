@@ -130,29 +130,41 @@ extension CNMCollectionController: UICollectionViewDelegateFlowLayout {
 }
 
 extension CNMCollectionController: CNMCollectionSectionDelegate {
-    func collectionSection(sectionDidSetItems section: CNMCollectionSectionProtocol) {
+    func collectionSection(sectionDidSetItems section: CNMCollectionSectionProtocol, completion: (() -> Void)?) {
         guard let sectionIndex = index(ofSection: section) else {
             return
         }
-        collectionView.reloadSections(IndexSet(integer: sectionIndex))
+        collectionView.performBatchUpdates({ [unowned self] in
+            self.collectionView.reloadSections(IndexSet(integer: sectionIndex))
+        }) { (_) in
+            completion?()
+        }
     }
-    func collectionSection(section: CNMCollectionSectionProtocol, didInsertItemsAtIndices indices: [Int]) {
+    func collectionSection(section: CNMCollectionSectionProtocol, didInsertItemsAtIndices indices: [Int], completion: (() -> Void)?) {
         guard let sectionIndex = index(ofSection: section) else {
             return
         }
         let indexPaths = indices.map { (itemIndex) -> IndexPath in
             return IndexPath(item: itemIndex, section: sectionIndex)
         }
-        collectionView.insertItems(at: indexPaths)
+        collectionView.performBatchUpdates({ [unowned self] in
+            self.collectionView.insertItems(at: indexPaths)
+        }) { (_) in
+            completion?()
+        }
     }
-    func collectionSection(section: CNMCollectionSectionProtocol, didRemoveItemsAtIndices indices: [Int]) {
+    func collectionSection(section: CNMCollectionSectionProtocol, didRemoveItemsAtIndices indices: [Int], completion: (() -> Void)?) {
         guard let sectionIndex = index(ofSection: section) else {
             return
         }
         let indexPaths = indices.map { (itemIndex) -> IndexPath in
             return IndexPath(item: itemIndex, section: sectionIndex)
         }
-        collectionView.deleteItems(at: indexPaths)
+        collectionView.performBatchUpdates({ [unowned self] in
+            self.collectionView.deleteItems(at: indexPaths)
+        }) { (_) in
+            completion?()
+        }
     }
     func index(ofSection section: CNMCollectionSectionProtocol) -> Int? {
         return sections.index(where: { $0.identifier == section.identifier })
